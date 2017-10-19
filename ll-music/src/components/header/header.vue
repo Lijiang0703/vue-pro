@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<img src="./logo.png">
-		<p>We Are The Lion</p>
+	<div class="header_wrap">
+		<p class="title">We Are The Lion</p>
+		<img src="./logo.png" class="logo">
 	</div>
 </template>
 
@@ -10,5 +10,14 @@
 </script>
 
 <style lang="stylus">
-	
+	.header_wrap
+		padding:5px 10px
+		text-align:right
+		.title
+			color: #fff
+			display:inline-block
+			margin-right:10px
+		.logo
+			width:15%
+			display:inline-block
 </style>

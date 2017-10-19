@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <Header></Header>
-
+    <m-header></m-header>
+    <tab></tab>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from 'src/components/header/header'
+import MHeader from 'components/header/header'
+import Tab from 'components/tab/tab'
 
 export default {
   name: 'app',
   components: {
-    Header
+    MHeader,
+    Tab
   }
 }
 </script>
 
 <style lang='stylus'>
-#app 
-  color: #f09
 
 </style>

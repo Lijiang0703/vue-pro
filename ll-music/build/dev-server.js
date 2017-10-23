@@ -12,6 +12,7 @@ const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
 const webpackConfig = require('./webpack.dev.conf')
+const axios = require('axios')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -23,6 +24,23 @@ const proxyTable = config.dev.proxyTable
 
 const app = express()
 const compiler = webpack(webpackConfig)
+
+const router = express.Router()
+router.get('/getlist',function(req,res,next){
+    var url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
+    axios.get(url,{
+      headers:{
+        referer:'https://c.y.qq.com/',
+        host:'c.y.qq.com'
+      },
+      params:req.query
+    }).then((response)=>{
+      res.json(response.data);
+    }).catch((e)=>{
+      console.log(e);
+    })
+})
+app.use('/api',router)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,

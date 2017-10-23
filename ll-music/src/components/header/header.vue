@@ -13,6 +13,7 @@
 	.header_wrap
 		padding:5px 10px
 		text-align:right
+		
 		.title
 			color: #fff
 			display:inline-block

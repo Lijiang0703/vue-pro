@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <m-header></m-header>
-    <tab></tab>
-    <router-view></router-view>
+    <div class="top">
+      <m-header></m-header>
+      <tab></tab>
+    </div>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -20,5 +24,8 @@ export default {
 </script>
 
 <style lang='stylus'>
-
+.top 
+  // position:fixed
+  // top:0
+  // left:0
 </style>

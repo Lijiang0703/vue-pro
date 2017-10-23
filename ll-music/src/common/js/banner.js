@@ -5,7 +5,6 @@ export default function getBanner() {
 
 	const common = {
 		g_tk: 502076345,
-		// uin: 1132600895,
 		format: 'jsonp',
 		inCharset: 'utf-8',
 		outCharset: 'utf-8',

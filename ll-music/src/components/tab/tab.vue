@@ -22,22 +22,23 @@
 </script>
 
 <style lang="stylus">
-	.tab
-		padding:10px
-		.tab_list
-			width:100%
-			display:flex
-			align-item:flex-end
-			flex-wrap:no-wrap
-		.link-item
-			flex-grow:1
-			text-align:center
-			color : #ccc
+@import '~common/style/variable'
+.tab
+	padding:10px
+	.tab_list
+		width:100%
+		display:flex
+		align-item:flex-end
+		flex-wrap:no-wrap
+	.link-item
+		flex-grow:1
+		text-align:center
+		color : $font_normal_color
+		span
+			padding:5px 0
+		&.router-link-active 
+			color: $font_highlight_color
 			span
-				padding:5px 0
-			&.router-link-active 
-				color: #e02860
-				span
-					border-bottom:2px solid #e02860
-	
+				border-bottom:2px solid $font_highlight_color
+
 </style>

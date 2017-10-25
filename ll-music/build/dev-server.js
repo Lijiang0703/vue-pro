@@ -27,7 +27,7 @@ const compiler = webpack(webpackConfig)
 
 const router = express.Router()
 router.get('/getlist',function(req,res,next){
-    var url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
+    const url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
     axios.get(url,{
       headers:{
         referer:'https://c.y.qq.com/',

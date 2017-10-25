@@ -16,7 +16,7 @@
 </template>
 
 <script type="text/javascript">
-import getBanner from 'common/js/banner'
+import * as api from 'common/js/banner'
 import Slider from 'base/slider/slider'
 import axios from 'axios'
 
@@ -27,30 +27,21 @@ export default{
 		}
 	},
 	created : function(){
-		// this.banner();
-		axios.get('/api/getlist',{
-			// url:'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg',
-			params:{
-				g_tk: 502076345,
-				inCharset: 'utf-8',
-				outCharset: 'utf-8',
-				notice: 0,
-				platform:'h5',
-				uin:0,
-				needNewCode:1,
-				format: 'json',
-			}
-		}).then((response)=>{
-			console.log(response);
-		})
+		this.banner();
+		this.recommend();
 	},
 	methods : {
 		banner: function(){
 			var $this = this;
-			getBanner().then(function(data){
+			api.getBanner().then(function(data){
 				if(data.code == 0){
 					$this.sliderlink = data.data.slider;
 				}
+			})
+		},
+		recommend: function(){
+			api.getRecommend().then(function(response){
+				console.log(response);
 			})
 		}
 	},

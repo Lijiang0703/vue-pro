@@ -14,7 +14,6 @@ export function jsonp(url,data,param){
 			}
 		})
 	})
-
 }
 function geturl(url,data) {
 	var param = url.indexOf('?')==-1? '?'+data : data;

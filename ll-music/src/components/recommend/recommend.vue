@@ -10,7 +10,10 @@
 			</slider>
 		</div>	
 		<div class="recommend_list">
-			<p class="title">热门歌单推荐</p>
+			<p class="hg_title">热门歌单推荐</p>
+			<div>
+				<list></list>
+			</div>
 		</div>
 	</div>
 </template>
@@ -18,6 +21,7 @@
 <script type="text/javascript">
 import * as api from 'common/js/banner'
 import Slider from 'base/slider/slider'
+import List from 'base/list/list'
 import axios from 'axios'
 
 export default{
@@ -46,7 +50,8 @@ export default{
 		}
 	},
 	components:{
-		Slider
+		Slider,
+		List
 	}
 }
 </script>
@@ -59,7 +64,7 @@ export default{
 		// 	width: 100%
 		// 	height:120px	
 	.recommend_list
-		.title
+		.hg_title
 			text-align: center
 			color: $font_highlight_color
 			font-weight: bold

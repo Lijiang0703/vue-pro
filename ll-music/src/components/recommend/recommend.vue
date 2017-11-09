@@ -2,7 +2,7 @@
 	<div class="recommend">
 		<div class="slider_wrap" v-if="sliderlink.length">
 			<slider>
-				<div v-for="item in sliderlink">
+				<div class="slider_item" v-for="item in sliderlink">
 					<a :href="item.linkUrl">
 						<img :src="item.picUrl">
 					</a>
@@ -12,7 +12,7 @@
 		<div class="recommend_list">
 			<p class="hg_title">热门歌单推荐</p>
 			<div>
-				<list></list>
+				<list :lists="recommendlist"></list>
 			</div>
 		</div>
 	</div>
@@ -22,30 +22,39 @@
 import * as api from 'common/js/banner'
 import Slider from 'base/slider/slider'
 import List from 'base/list/list'
-import axios from 'axios'
 
 export default{
 	data(){
 		return {
-			sliderlink:[]
+			sliderlink:[],
+			recommendlist:[]
 		}
 	},
 	created : function(){
 		this.banner();
-		this.recommend();
+		this.recommends();
 	},
 	methods : {
 		banner: function(){
 			var $this = this;
-			api.getBanner().then(function(data){
+			api.getDataByJsonP({
+				url:'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg',
+				format: 'jsonp',
+				platform:'h5',
+				uin:0,
+				needNewCode:1
+			}).then(function(data){
 				if(data.code == 0){
 					$this.sliderlink = data.data.slider;
 				}
 			})
 		},
-		recommend: function(){
-			api.getRecommend().then(function(response){
-				console.log(response);
+		recommends: function(){
+			var $this = this;
+			api.getRecommend().then(function(data){
+				if(data.code == 0){
+					$this.recommendlist = data.data.list;
+				}
 			})
 		}
 	},
@@ -60,10 +69,14 @@ export default{
 @import '~common/style/variable'
 .recommend
 	.slider_wrap
-		// .slider_img
-		// 	width: 100%
-		// 	height:120px	
+		height:120px	
+		overflow: hidden
+		.slider_item 
+			img
+				width: 100%
+				height:100%
 	.recommend_list
+		padding-top:20px
 		.hg_title
 			text-align: center
 			color: $font_highlight_color

@@ -40,6 +40,22 @@ router.get('/getlist',function(req,res,next){
       console.log(e);
     })
 })
+
+// router.get('/getrank',function(req,res,next){
+//   const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg'
+//   axios.get(url,{
+//     headers:{
+//       referer:'https://y.qq.com/n/yqq/toplist/4.html',
+//       host:'c.y.qq.com'
+//     },
+//     params:req.query
+//   }).then((response)=>{
+//     res.send(response.data);
+//   }).catch((e)=>{
+//     console.log(e);
+//   })
+// })
+
 app.use('/api',router)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {

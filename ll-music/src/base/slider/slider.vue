@@ -7,7 +7,6 @@
 			
 		</div>
 	</div>
-
 </template>
 
 <script type="text/javascript">
@@ -32,7 +31,10 @@ export default {
 	},
 	mounted: function(){
 		setTimeout(function(){
-			let scroll = new BScroll('.slider');
+			let scroll = new BScroll('.slider',{
+				scrollX: true,
+				tap: true
+			});
 		},20)
 	},
 	methods:{
@@ -42,8 +44,6 @@ export default {
 </script>
 
 <style lang="stylus">
-	.slider_wrap
-		.slider_img
-			width: 100%
-			height:120px	
+.slider_group
+	overflow:hidden	
 </style>

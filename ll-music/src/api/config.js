@@ -5,4 +5,4 @@ const DEFAULT = {
 	notice: 0
 }
 
-export {DEFAULT}
+export default DEFAULT

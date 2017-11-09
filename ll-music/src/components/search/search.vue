@@ -6,11 +6,10 @@
 		<div class="search_recommend">
 			<p class="title">热门搜索</p>
 			<div class="keywords">
-				<p class="item">无条件</p>
-				<p class="item">双世宠妃</p>
-				<p class="item">无条件</p>
+				<p class="item" v-for="item in hots" v-text="item.k" :id="item.n">双世宠妃</p>
+				<!-- <p class="item">无条件</p>
 				<p class="item">林忆莲</p>
-				<p class="item">无条件</p>
+				<p class="item">无条件</p> -->
 			</div>
 		</div>
 		<div class="search_history">
@@ -31,7 +30,29 @@
 </template>
 
 <script type="text/javascript">
-	
+import * as api from 'common/js/banner'
+export default{
+	data(){
+		return {
+			hots:[]
+		}
+	},
+	created: function(){
+		this.hotsearch();
+	},
+	methods:{
+		hotsearch: function(){
+			var $this = this;
+			api.getDataByJsonP({
+				url:'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg'
+			}).then(function(data){
+				if(data.code == 0){
+					$this.hots = data.data.hotkey.slice(0,5);
+				}
+			})
+		}	
+	}
+}
 </script>
 
 <style lang="stylus">

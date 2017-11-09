@@ -42,7 +42,7 @@
 	margin-bottom:15px
 	input
 		box-sizing:border-box
-		background:#383535
+		background:$background_content
 		width:100%
 		border-radius:5px
 		color:$font_normal_color

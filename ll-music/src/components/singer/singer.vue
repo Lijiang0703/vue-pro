@@ -1,11 +1,18 @@
 <template>
-	
+	<div class="singer">
+
+	</div>
 </template>
 
 <script type="text/javascript">
-	
-</script>
 
+export default{
+	components:{
+		// detail
+	}
+}
+</script>
+	
 <style lang="stylus">
 	
 </style>

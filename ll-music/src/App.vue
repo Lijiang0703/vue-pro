@@ -26,8 +26,5 @@ export default {
 </script>
 
 <style lang='stylus'>
-.top 
-  // position:fixed
-  // top:0
-  // left:0
+
 </style>

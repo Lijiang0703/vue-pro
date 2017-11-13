@@ -2,7 +2,7 @@
 	<div class="list">
 		<ul class="list_container">
 			<li v-for="item in lists">
-				<div class="list_item">
+				<div class="list_item" @click="toDetail(item)">
 					<div class="left">
 						<!-- <img src="../../common/image/logo.png" alt="" width="60" height="60"> -->
 						<img :src="item.imgurl" alt=""  width="60" height="60">
@@ -21,6 +21,11 @@ export default{
 	props:['lists'],
 	created: function(){
 
+	},
+	methods:{
+		toDetail:function(item){
+			this.$emit('checked',item.dissid);
+		}
 	}
 }	
 </script>

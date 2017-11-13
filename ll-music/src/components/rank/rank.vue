@@ -59,7 +59,7 @@ export default{
 		color:$font_normal_color
 		// ul
 		// 	display:flex
-		// 	flex-direction: column
+		// 	 : column
 		// 	flex:1
 		// 	justify-content: center
 		// 	overflow: hidden

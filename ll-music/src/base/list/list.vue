@@ -1,7 +1,7 @@
 <template>
 	<div class="list">
 		<ul class="list_container">
-			<li v-for="item in lists"  @click="todetail(item)">
+			<li v-for="item in lists">
 				<div class="list_item">
 					<div class="left">
 						<!-- <img src="../../common/image/logo.png" alt="" width="60" height="60"> -->
@@ -21,11 +21,6 @@ export default{
 	props:['lists'],
 	created: function(){
 
-	},
-	methods:{
-		todetail : function(item){
-			this.$emit('checked',item.dissid);
-		}
 	}
 }	
 </script>

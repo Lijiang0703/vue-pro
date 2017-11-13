@@ -12,10 +12,9 @@
 		<div class="recommend_list">
 			<p class="hg_title">热门歌单推荐</p>
 			<div>
-				<list :lists="recommendlist" @checked="toDetail"></list>
+				<list :lists="recommendlist"></list>
 			</div>
 		</div>
-		<router-view></router-view>
 	</div>
 </template>
 
@@ -56,12 +55,6 @@ export default{
 				if(data.code == 0){
 					$this.recommendlist = data.data.list;
 				}
-			})
-		},
-		toDetail: function(id){
-			this.$router.push({
-				name: 'recommenddetail',
-				params:{id:id}
 			})
 		}
 	},

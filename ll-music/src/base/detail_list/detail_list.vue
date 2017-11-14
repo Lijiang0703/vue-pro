@@ -1,9 +1,9 @@
 <template>
 	<div class="detail">
-		<div class="topbanner">
+		<div class="topbanner" :style="{'background-image':'url('+logo+')'}">
 			<div class="bar">
 				<img src="../../common/image/back.png" alt="" class="back" @click="back">
-				<span class="title">广汽传祺 巅峰榜 流行指数</span>
+				<span class="title" v-text="topTitle"></span>
 			</div>
 			<div class="play_random">
 				<div class="wrap">
@@ -11,17 +11,18 @@
 					<span>随机播放全部</span>
 				</div>
 			</div>
+			<div class="mask"></div>
 		</div>
 		<div class="list">
 			<ul>
-				<li>
+				<li v-for="(item,key) in lists">
 					<div class="listitem">
 						<div class="left" v-if="showIndex">
-							<p class="index">1</p>
+							<p class="index" v-text="key"></p>
 						</div>
 						<div class="right">
-							<p class="title">爱如潮水</p>
-							<p class="content">GAI.蒙面唱将猜猜猜第二季 第9期</p>
+							<p class="title" v-text="item.title"></p>
+							<p class="content" v-text="item.singer[0].title"></p>
 						</div>
 					</div>
 				</li>
@@ -30,15 +31,38 @@
 	</div>
 </template>
 <script type="text/javascript">
+import * as api from 'common/js/banner'
 export default{
 	data(){
 		return {
-			showIndex :true
+			logo:"",
+			topTitle:"",
+			lists:[]
 		}
+	},
+	props:['id'],
+	computed:{
+		showIndex :function(){
+			return this.$route.params.showIndex;
+		}
+	},
+	created:function(){
+		this.getList();
 	},
 	methods:{
 		back:function(){
 			this.$router.go(-1);
+		},
+		getList:function(){
+			var $this = this;
+			api.getSongList(this.$route.params.id).then(function(data){
+				if(data.code == 0){
+					var _data = data.cdlist[0];
+					$this.logo = _data.logo;
+					$this.topTitle = _data.dissname
+					$this.lists = _data.songlist;
+				}
+			});
 		}
 	}
 }
@@ -49,6 +73,7 @@ itop = 40px
 imgsize = 30px
 ptop = 10px
 pleft= 15px
+listh = 60px
 .detail
 	display:flex
 	flex-direction:row-reverse
@@ -56,10 +81,13 @@ pleft= 15px
 	.topbanner
 		width:100%
 		background:#666
+		background-repeat:no-repeat
+		background-size:cover
 		height:250px
 		position:relative
 		.bar
 			position:fixed
+			z-index:10
 			top:0
 			left:0
 			text-align:center
@@ -83,6 +111,7 @@ pleft= 15px
 		.play_random
 			position:absolute
 			bottom: pleft
+			z-index:10
 			width:100%
 			margin-top:itop+ptop*2
 			.wrap
@@ -101,27 +130,50 @@ pleft= 15px
 					text-align:center
 					height:imgsize
 					line-height:imgsize
+		.mask
+			width:100%
+			height:100%
+			position:absolute
+			left:0
+			top:0
+			background:#000
+			z-index:1
+			opacity:0.6
 										
 	.list			
 		width:100%
 		.listitem
 			display:flex
+			height:listh
 			.left
 				flex-grow:1
+				// flex-shrink:0
+				// flex-basis:60px
+				// width:60px
 				text-align:center
 				color:$font_highlight_color
 				p
 					margin-top:50%
 					transform:translateY(-50%)
+					-webkit-transform:translateY(-50%)
+					height:20px
+					line-height:20px
 					font-size:$font_navbar_size
 					font-weight:400
 			.right
 				flex-grow:3
+				flex-shrink:1
 				.title
 					margin-top:5px
 					color:$font_normal_color
 					font-size:$font_title_size
 				.content
+					// width:100%
+					// overflow:hidden
+					// white-space: nowrap
+					// text-overflow:ellipsis
+					// -webkit-text-overflow:ellipsis
+					font-size:$font_navbar_size
 					margin-top:ptop
 					color:$font_content_color
 					font-size:$font_normal_size

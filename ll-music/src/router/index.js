@@ -18,11 +18,13 @@ export default new Router({
       path: '/recommend',
       name: 'recommend',
       component: Recommend,
+      // props:true,
       children:[
       {
         path:':id',
         name:'recommend_detail',
         component: RecommendDetail
+        // props:true
       }
       ]
     },

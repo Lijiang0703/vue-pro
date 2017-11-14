@@ -55,6 +55,20 @@ router.get('/getlist',function(req,res,next){
 //     console.log(e);
 //   })
 // })
+router.get('/getsonglist',function(req,res,next){
+  const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg';
+  axios.get(url,{
+    headers:{
+      referer:'https://y.qq.com/w/taoge.html',
+      host:'c.y.qq.com'
+    },
+    params:req.query
+  }).then((response)=>{
+    res.json(response.data);
+  }).catch((e)=>{
+    console.log(e);
+  })
+})
 
 app.use('/api',router)
 

@@ -7,7 +7,7 @@
 import Detail from 'base/detail_list/detail_list'
 export default{
 	created: function(){
-		console.log('OK');
+		// console.log('OK');
 	},
 	components:{
 		Detail

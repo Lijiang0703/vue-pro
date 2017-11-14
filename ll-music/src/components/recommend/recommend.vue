@@ -59,11 +59,12 @@ export default{
 			})
 		},
 		toDetail: function(id){
-			console.log(id);
+			// console.log(id);
 			this.$router.push({
 				name:'recommend_detail',
 				params:{
-					id:id
+					id:id,
+					showIndex:false
 				}
 			})
 		}

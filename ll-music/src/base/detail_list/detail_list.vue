@@ -6,7 +6,7 @@
 				<span class="title" v-text="topTitle"></span>
 			</div>
 			<div class="play_random">
-				<div class="wrap">
+				<div class="wrap" @click="palyByRandom">
 					<img src="../../common/image/play.png" alt="">
 					<span>随机播放全部</span>
 				</div>
@@ -20,7 +20,7 @@
 						<div class="left" v-if="showIndex">
 							<p class="index" v-text="key"></p>
 						</div>
-						<div class="right">
+						<div class="right" @click="palyImmediate(item.id)">
 							<p class="title" v-text="item.title"></p>
 							<p class="content" v-text="item.singer[0].title"></p>
 						</div>
@@ -62,7 +62,13 @@ export default{
 					$this.topTitle = _data.dissname
 					$this.lists = _data.songlist;
 				}
-			});
+			})
+		},
+		palyByRandom:function(){
+			//随机播放
+		},
+		palyImmediate:function(id){
+			//立即播放
 		}
 	}
 }

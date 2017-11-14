@@ -57,33 +57,37 @@ export default{
 
 <style lang="stylus">
 @import '~common/style/variable'
+mbottom = 15px
+pleft = 10px
+braduis = 5px
 .search
 	padding:20px
+	position:relative
 .search_input
-	margin-bottom:15px
+	margin-bottom:mbottom
 	input
 		box-sizing:border-box
 		background:$background_content
 		width:100%
-		border-radius:5px
+		border-radius:braduis
 		color:$font_normal_color
 		font-size:$font_title_size
-		padding:10px 
+		padding:pleft 
 .search_recommend
-	margin-bottom:15px
+	margin-bottom:mbottom
 	.title
 		color:$font_highlight_color
 		font-size:$font_navbar_size
-		margin-bottom:15px
+		margin-bottom:mbottom
 	.keywords
 		display:flex
 		flex-wrap:wrap
 		p.title
 			color:$font_normal_color
 		p.item
-			padding:5px 10px
-			border-radius: 5px
-			margin:10px 20px 0 0
+			padding:5px pleft
+			border-radius: braduis
+			margin:pleft pleft*2 0 0
 			color:$font_normal_color
 			background:$font_content_color
 .search_history
@@ -91,7 +95,7 @@ export default{
 		// color:$font_normal_color
 		color:$font_highlight_color
 		font-size:$font_navbar_size
-		margin-bottom:15px
+		margin-bottom:mbottom
 	.hist_list
 		position:relative
 		a

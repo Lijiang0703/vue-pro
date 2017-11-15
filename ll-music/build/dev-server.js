@@ -41,20 +41,21 @@ router.get('/getlist',function(req,res,next){
     })
 })
 
-// router.get('/getrank',function(req,res,next){
-//   const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg'
-//   axios.get(url,{
-//     headers:{
-//       referer:'https://y.qq.com/n/yqq/toplist/4.html',
-//       host:'c.y.qq.com'
-//     },
-//     params:req.query
-//   }).then((response)=>{
-//     res.send(response.data);
-//   }).catch((e)=>{
-//     console.log(e);
-//   })
-// })
+router.get('/getsinger',function(req,res,next){
+  const url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg'
+  axios.get(url,{
+    headers:{
+      referer:'https://y.qq.com/portal/singer_list.html',
+      host:'c.y.qq.com'
+    },
+    params:req.query
+  }).then((response)=>{
+    res.send(response.data);
+  }).catch((e)=>{
+    console.log(e);
+  })
+})
+
 router.get('/getsonglist',function(req,res,next){
   const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg';
   axios.get(url,{

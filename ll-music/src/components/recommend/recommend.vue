@@ -11,9 +11,7 @@
 		</div>	
 		<div class="recommend_list">
 			<p class="hg_title">热门歌单推荐</p>
-			<div>
-				<list :lists="recommendlist" @checked="toDetail"></list>
-			</div>
+			<list :lists="recommendlist" @checked="toDetail"></list>
 		</div>
 		<router-view></router-view>
 	</div>
@@ -23,6 +21,7 @@
 import * as api from 'common/js/banner'
 import Slider from 'base/slider/slider'
 import List from 'base/list/list'
+import BScroll from 'better-scroll'
 
 export default{
 	data(){
@@ -47,6 +46,7 @@ export default{
 			}).then(function(data){
 				if(data.code == 0){
 					$this.sliderlink = data.data.slider;
+
 				}
 			})
 		},
@@ -79,13 +79,6 @@ export default{
 <style lang="stylus">
 @import '~common/style/variable'
 .recommend
-	.slider_wrap
-		height:120px	
-		overflow: hidden
-		.slider_item 
-			img
-				width: 100%
-				height:100%
 	.recommend_list
 		padding-top:20px
 		.hg_title

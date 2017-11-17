@@ -1,8 +1,8 @@
 <template>
 	<div class="list">
 		<ul class="list_container">
-			<li v-for="item in lists">
-				<div class="list_item" @click="toDetail(item)">
+			<li v-for="item in lists" class="list_item">
+				<div class="item_wrap" @click="toDetail(item)">
 					<div class="left">
 						<!-- <img src="../../common/image/logo.png" alt="" width="60" height="60"> -->
 						<img :src="item.imgurl" alt=""  width="60" height="60">
@@ -17,14 +17,53 @@
 	</div>
 </template>
 <script type="text/javascript">
+import BScroll from 'better-scroll'
 export default{
 	props:['lists'],
 	created: function(){
 
 	},
+	mounted:function(){
+		var $this = this;
+		// this.$nextTick(function(){
+		// })
+		// window.setTimeout(function(){
+			// $this.setContentH();
+		// },1000)
+	},
 	methods:{
 		toDetail:function(item){
 			this.$emit('checked',item.dissid);
+		},
+		setContentH:function(){
+			var size = this.getChildSize();
+			var wrap = document.querySelector('.list_container');
+			var $this = this;
+			if(size)
+			wrap.style.height = size.height * this.lists.length + 'px';
+			setTimeout(function(){
+				if(!$this.scroll){
+					$this.scroll = new BScroll('.list');
+				}else{
+					$this.scroll.refresh();
+				}
+			},20)
+		},
+		getChildSize:function(){
+			var item = document.querySelector('.list_item');
+			if(item){
+				var height = item.offsetHeight;
+				var width = item.offsetWidth;
+				return {
+					width:width,
+					height:height
+				}
+			}
+		}
+	},
+	watch:{
+		lists:function(){
+			 this.setContentH();
 		}
 	}
 }	
@@ -33,7 +72,14 @@ export default{
 @import '~common/style/variable'
 .list
 	padding:20px
+	min-height:1px
+	height:350px
+	overflow:hidden
+	border-box:box-sizing
 .list_item
+	height:70px
+	box-sizing:border-box
+.item_wrap
 	display:flex
 	margin-bottom:15px
 	.left 

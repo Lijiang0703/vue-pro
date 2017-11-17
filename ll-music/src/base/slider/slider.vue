@@ -44,6 +44,16 @@ export default {
 </script>
 
 <style lang="stylus">
+.slider
+	height:150px	
+	width:100%
+	overflow:hidden
 .slider_group
-	overflow:hidden	
+	height:100%
+.slider_item
+	float:left
+	overflow:hidden
+	img
+		width: 100%
+		height:100%
 </style>

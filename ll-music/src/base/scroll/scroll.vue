@@ -15,12 +15,14 @@ export default({
 		}
 	},
 	mounted:function(){
-		
+		var $this = this;
+		setTimeout(function(){
+			$this.initScroll();
+		},20)
 	},
 	methods:{
 		initScroll : function(){
 			this.scroll = new BScroll('.scroll');
-
 		},
 		init : function(){
 			var dirct = this.direction;
@@ -32,7 +34,7 @@ export default({
 		},
 		_initWidth : function(){
 			var item = this.$refs.scrollwrap.children;
-			
+
 		},
 		_initHeight : function(){
 

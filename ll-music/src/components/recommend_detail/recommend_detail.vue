@@ -19,6 +19,7 @@ export default{
 .recom_detail
 	background:$backround_color
 	width:100%
+	height:100%
 	z-index:100
 	position:fixed
 	top:0

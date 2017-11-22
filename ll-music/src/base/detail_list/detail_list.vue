@@ -84,6 +84,7 @@ listh = 60px
 	display:flex
 	flex-direction:row-reverse
 	flex-wrap:wrap
+	height:100%
 	.topbanner
 		width:100%
 		background:#666
@@ -148,6 +149,7 @@ listh = 60px
 										
 	.list			
 		width:100%
+		
 		.listitem
 			display:flex
 			height:listh

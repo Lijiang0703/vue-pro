@@ -25,6 +25,8 @@
 @import '~common/style/variable'
 .tab
 	padding:10px
+	height:36px
+	box-sizing:border-box
 	.tab_list
 		width:100%
 		display:flex
@@ -36,6 +38,7 @@
 		color : $font_normal_color
 		span
 			padding:5px 0
+			font-size:$font_normal_size
 		&.router-link-active 
 			color: $font_highlight_color
 			span

@@ -25,22 +25,17 @@ export default{
 	},
 	mounted:function(){
 		var $this = this;
-		// this.$nextTick(function(){
-		// })
-		// window.setTimeout(function(){
-			// $this.setContentH();
-		// },1000)
+		this.$nextTick(function(){
+			$this.setContentH();
+			$this.initScroll();
+		})
 	},
 	methods:{
 		toDetail:function(item){
 			this.$emit('checked',item.dissid);
 		},
-		setContentH:function(){
-			var size = this.getChildSize();
-			var wrap = document.querySelector('.list_container');
+		initScroll:function(){
 			var $this = this;
-			if(size)
-			wrap.style.height = size.height * this.lists.length + 'px';
 			setTimeout(function(){
 				if(!$this.scroll){
 					$this.scroll = new BScroll('.list');
@@ -48,6 +43,13 @@ export default{
 					$this.scroll.refresh();
 				}
 			},20)
+		},
+		setContentH:function(){
+			var size = this.getChildSize();
+			var wrap = document.querySelector('.list_container');
+			var $this = this;
+			if(size)
+			wrap.style.height = size.height * this.lists.length + 'px';
 		},
 		getChildSize:function(){
 			var item = document.querySelector('.list_item');
@@ -63,7 +65,7 @@ export default{
 	},
 	watch:{
 		lists:function(){
-			 this.setContentH();
+			 // this.setContentH();
 		}
 	}
 }	

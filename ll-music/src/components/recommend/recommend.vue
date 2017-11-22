@@ -1,19 +1,21 @@
 <template>
-	<div class="recommend">
-		<div class="slider_wrap" v-if="sliderlink.length">
-			<slider>
-				<div class="slider_item" v-for="item in sliderlink">
-					<a :href="item.linkUrl">
-						<img :src="item.picUrl">
-					</a>
-				</div>
-			</slider>
-		</div>	
-		<div class="recommend_list">
-			<p class="hg_title">热门歌单推荐</p>
-			<list :lists="recommendlist" @checked="toDetail"></list>
+	<div class="recommendWrap">
+		<div class="recommend">
+			<div class="slider_wrap" v-if="sliderlink.length">
+				<slider>
+					<div v-for="item in sliderlink">
+						<a :href="item.linkUrl">
+							<img :src="item.picUrl">
+						</a>
+					</div>
+				</slider>
+			</div>	
+			<div class="recommend_list" v-if="recommendlist.length">
+				<p class="hg_title">热门歌单推荐</p>
+				<list :lists="recommendlist" @checked="toDetail"></list>
+			</div>
+			<router-view></router-view>
 		</div>
-		<router-view></router-view>
 	</div>
 </template>
 
@@ -33,6 +35,9 @@ export default{
 	created : function(){
 		this.banner();
 		this.recommends();
+	},
+	mounted: function(){
+		// let bsScroll = new BScroll('.recommendWrap');
 	},
 	methods : {
 		banner: function(){
@@ -78,6 +83,11 @@ export default{
 
 <style lang="stylus">
 @import '~common/style/variable'
+.recommendWrap
+	position:fixed
+	top:96px
+	left:0
+	width:100%
 .recommend
 	.recommend_list
 		padding-top:20px

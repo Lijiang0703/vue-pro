@@ -45,11 +45,14 @@ export default {
 			$this._setGroupWidth();
 			let scroll = $this.scroll = new BScroll('.slider',{
 				scrollX: true,
+				scrollY: false,
+				click: true,
+				momentum: false,  //惯性
 				snap: {
 					loop: $this.loop,
-					threshold: 0.1,
-					probeType:1,
-					speed: $this.duration
+					threshold: 0.3,
+					// probeType:1,
+					speed: $this.speed
 				}
 			});
 			if($this.autoPlay){

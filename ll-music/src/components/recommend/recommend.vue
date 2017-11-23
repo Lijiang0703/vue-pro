@@ -1,18 +1,20 @@
 <template>
 	<div class="recommendWrap">
-		<div class="recommend">
-			<div class="slider_wrap" v-if="sliderlink.length">
-				<slider>
-					<div v-for="item in sliderlink">
-						<a :href="item.linkUrl">
-							<img :src="item.picUrl">
-						</a>
-					</div>
-				</slider>
-			</div>	
-			<div class="recommend_list" v-if="recommendlist.length">
-				<p class="hg_title">热门歌单推荐</p>
-				<list :lists="recommendlist" @checked="toDetail"></list>
+		<div class="recommendContent">
+			<div class="recommend">
+				<div class="slider_wrap" v-if="sliderlink.length">
+					<slider>
+						<div v-for="item in sliderlink">
+							<a :href="item.linkUrl">
+								<img :src="item.picUrl">
+							</a>
+						</div>
+					</slider>
+				</div>	
+				<div class="recommend_list" v-if="recommendlist.length">
+					<p class="hg_title">热门歌单推荐</p>
+					<list :lists="recommendlist" @checked="toDetail"></list>
+				</div>
 			</div>
 			<router-view></router-view>
 		</div>
@@ -37,7 +39,6 @@ export default{
 		this.recommends();
 	},
 	mounted: function(){
-		// let bsScroll = new BScroll('.recommendWrap');
 	},
 	methods : {
 		banner: function(){
@@ -51,7 +52,7 @@ export default{
 			}).then(function(data){
 				if(data.code == 0){
 					$this.sliderlink = data.data.slider;
-
+					setTimeout($this.initScroll,50);
 				}
 			})
 		},
@@ -60,6 +61,7 @@ export default{
 			api.getRecommend().then(function(data){
 				if(data.code == 0){
 					$this.recommendlist = data.data.list;
+					setTimeout($this.initScroll,50);
 				}
 			})
 		},
@@ -72,6 +74,23 @@ export default{
 					showIndex:false
 				}
 			})
+		},
+		initScroll: function(){
+			if(!this.sliderlink.length || !this.recommendlist.length) return;
+			const slider = document.querySelector('.slider_wrap').clientHeight;
+			const list = document.querySelector('.recommend_list').clientHeight;
+
+			document.querySelector('.recommend').style.height = slider+list +'px';
+			if(!this.scroll){
+				this.scroll = new BScroll('.recommendContent');
+			}else{
+				this.scroll.refresh();
+			}
+		}
+	},
+	watch:{
+		recommendlist:function(){
+				
 		}
 	},
 	components:{
@@ -88,6 +107,11 @@ export default{
 	top:96px
 	left:0
 	width:100%
+	height:100%
+.recommendContent
+	width:100%
+	height:100%
+	overflow:hidden
 .recommend
 	.recommend_list
 		padding-top:20px

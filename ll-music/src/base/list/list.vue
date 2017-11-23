@@ -26,8 +26,8 @@ export default{
 	mounted:function(){
 		var $this = this;
 		this.$nextTick(function(){
-			$this.setContentH();
-			$this.initScroll();
+			// $this.setContentH();
+			// $this.initScroll();
 		})
 	},
 	methods:{
@@ -75,9 +75,9 @@ export default{
 .list
 	padding:20px
 	min-height:1px
-	height:350px
-	overflow:hidden
-	border-box:box-sizing
+	// height:350px
+	// overflow:hidden
+	box-sizing:border-box
 .list_item
 	height:70px
 	box-sizing:border-box

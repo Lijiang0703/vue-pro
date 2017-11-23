@@ -28,7 +28,7 @@ export default {
 			type:Boolean,
 			default:true
 		},
-		duration:{
+		interval:{
 			type:Number,
 			default:4000
 		},
@@ -103,7 +103,7 @@ export default {
 			this.$refs.sliderGroup.style.width = wrapWidth +'px';
 		},
 		_autoPlay:function(){
-			const duration = this.duration;
+			const interval = this.interval;
 			let $this = this;
 
 			this.Time = setTimeout(function(){
@@ -118,7 +118,7 @@ export default {
 				// $this.current = next-1;
 				scroll.goToPage(next,0,$this.speed);
 
-			},duration);
+			},interval);
 
 		}
 	}

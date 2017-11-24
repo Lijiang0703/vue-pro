@@ -80,7 +80,8 @@ export default{
 			const slider = document.querySelector('.slider_wrap').clientHeight;
 			const list = document.querySelector('.recommend_list').clientHeight;
 
-			document.querySelector('.recommend').style.height = slider+list +'px';
+			document.querySelector('.recommend').style.height = slider+list+70 +'px';  //有个70的差 bug
+
 			if(!this.scroll){
 				this.scroll = new BScroll('.recommendContent');
 			}else{
@@ -114,6 +115,7 @@ export default{
 	overflow:hidden
 .recommend
 	.recommend_list
+		box-sizing:border-box
 		padding-top:20px
 		.hg_title
 			text-align: center

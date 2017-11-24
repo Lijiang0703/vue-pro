@@ -64,28 +64,18 @@ export default {
 					$this._autoPlay();
 				}		
 			})
-			scroll.on('touchEnd',function(){
-				// let current = this.getCurrentPage().pageX;
-				// let direct = this.movingDirectionX;
-				// let next ;
-				// if(direct<0){ //-1从左往右滑，后退
-				// 	if(current <=1){
-				// 		next = $this.dots-1;
-				// 	}else next = current -2;
-				// }else if(direct>0){
-				// 	if(current >= $this.dots){
-				// 		next = 0;
-				// 	}else next = current;
-				// }
-				// $this.current = next;
-			})
 			scroll.on('beforeScrollStart',function(){
 				if($this.Time) clearTimeout($this.Time);
 			})
+			window.addEventListener('resize',function(){
+				if(!$this.scroll) return;
+				$this._setGroupWidth(true);
+				$this.scroll.refresh();
+			},false)
 		},20)
 	},
 	methods:{
-		_setGroupWidth:function(){
+		_setGroupWidth:function(isResize){
 			let children = this.$refs.sliderGroup.children;
 			
 			let slider = this.$refs.slider;
@@ -99,7 +89,7 @@ export default {
 				child.style.width = _width+"px";
 				wrapWidth += _width;
 			}
-			if(this.loop) wrapWidth += _width*2;
+			if(this.loop && !isResize) wrapWidth += _width*2;
 			this.$refs.sliderGroup.style.width = wrapWidth +'px';
 		},
 		_autoPlay:function(){
@@ -128,18 +118,15 @@ export default {
 <style lang="stylus">
 @import '~common/style/variable.styl'
 .slider
-	height:150px	
 	width:100%
 	overflow:hidden
 	position:relative
 .slider_group
-	height:100%
 .slider_item
 	float:left
 	overflow:hidden
 	img
 		width: 100%
-		height:100%
 .sliderdots
 	width:100%
 	text-align:center

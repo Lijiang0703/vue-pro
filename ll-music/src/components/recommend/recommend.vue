@@ -18,7 +18,7 @@
 							<li v-for="item in recommendlist" class="list_item">
 								<div class="item_wrap" @click="toDetail(item)">
 									<div class="left">
-										<img :src="item.imgurl" alt="" width="60" height="60">
+										<img v-lazy="item.imgurl" alt="" width="60" height="60">
 									</div>
 									<div class="right">
 										<p class="title" v-text="item.creator.name"></p>

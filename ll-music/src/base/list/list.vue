@@ -24,50 +24,50 @@ export default{
 
 	},
 	mounted:function(){
-		var $this = this;
-		this.$nextTick(function(){
+		// var $this = this;
+		// this.$nextTick(function(){
 			// $this.setContentH();
 			// $this.initScroll();
-		})
+		// })
 	},
 	methods:{
 		toDetail:function(item){
 			this.$emit('checked',item.dissid);
 		},
-		initScroll:function(){
-			var $this = this;
-			setTimeout(function(){
-				if(!$this.scroll){
-					$this.scroll = new BScroll('.list');
-				}else{
-					$this.scroll.refresh();
-				}
-			},20)
-		},
-		setContentH:function(){
-			var size = this.getChildSize();
-			var wrap = document.querySelector('.list_container');
-			var $this = this;
-			if(size)
-			wrap.style.height = size.height * this.lists.length + 'px';
-		},
-		getChildSize:function(){
-			var item = document.querySelector('.list_item');
-			if(item){
-				var height = item.offsetHeight;
-				var width = item.offsetWidth;
-				return {
-					width:width,
-					height:height
-				}
-			}
-		}
-	},
-	watch:{
-		lists:function(){
-			 // this.setContentH();
-		}
+		// initScroll:function(){
+		// 	var $this = this;
+		// 	setTimeout(function(){
+		// 		if(!$this.scroll){
+		// 			$this.scroll = new BScroll('.list');
+		// 		}else{
+		// 			$this.scroll.refresh();
+		// 		}
+		// 	},20)
+		// },
+		// setContentH:function(){
+		// 	var size = this.getChildSize();
+		// 	var wrap = document.querySelector('.list_container');
+		// 	var $this = this;
+		// 	if(size)
+		// 	wrap.style.height = size.height * this.lists.length + 'px';
+		// },
+		// getChildSize:function(){
+		// 	var item = document.querySelector('.list_item');
+		// 	if(item){
+		// 		var height = item.offsetHeight;
+		// 		var width = item.offsetWidth;
+		// 		return {
+		// 			width:width,
+		// 			height:height
+		// 		}
+		// 	}
+		// }
 	}
+	// watch:{
+	// 	lists:function(){
+	// 		 // this.setContentH();
+	// 	}
+	// }
 }	
 </script>
 <style lang='stylus'>

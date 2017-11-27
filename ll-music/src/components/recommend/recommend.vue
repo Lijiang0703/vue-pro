@@ -1,37 +1,51 @@
 <template>
 	<div class="recommendWrap">
-		<div class="recommendContent">
-			<div class="recommend">
+		<Scroll class="recommend_content" ref="scroll" :data="recommendlist">
+			<div class="recommend" >
 				<div class="slider_wrap" v-if="sliderlink.length">
 					<slider>
 						<div v-for="item in sliderlink">
 							<a :href="item.linkUrl">
-								<img :src="item.picUrl">
+								<img :src="item.picUrl" @load="refreshImage">
 							</a>
 						</div>
 					</slider>
 				</div>	
-				<div class="recommend_list" v-if="recommendlist.length">
+				<div class="recommend_list">
 					<p class="hg_title">热门歌单推荐</p>
-					<list :lists="recommendlist" @checked="toDetail"></list>
+					<div class="list">
+						<ul class="list_container">
+							<li v-for="item in recommendlist" class="list_item">
+								<div class="item_wrap" @click="toDetail(item)">
+									<div class="left">
+										<img :src="item.imgurl" alt="" width="60" height="60">
+									</div>
+									<div class="right">
+										<p class="title" v-text="item.creator.name"></p>
+										<p class="content" v-text="item.dissname"></p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<router-view></router-view>
-		</div>
+		</Scroll>
 	</div>
 </template>
 
 <script type="text/javascript">
 import * as api from 'common/js/banner'
 import Slider from 'base/slider/slider'
-import List from 'base/list/list'
-import BScroll from 'better-scroll'
+import Scroll from 'base/scroll/scroll'
 
 export default{
 	data(){
 		return {
 			sliderlink:[],
-			recommendlist:[]
+			recommendlist:[],
+			imageLoad:false
 		}
 	},
 	created : function(){
@@ -39,6 +53,7 @@ export default{
 		this.recommends();
 	},
 	mounted: function(){
+
 	},
 	methods : {
 		banner: function(){
@@ -52,7 +67,6 @@ export default{
 			}).then(function(data){
 				if(data.code == 0){
 					$this.sliderlink = data.data.slider;
-					setTimeout($this.initScroll,50);
 				}
 			})
 		},
@@ -61,42 +75,28 @@ export default{
 			api.getRecommend().then(function(data){
 				if(data.code == 0){
 					$this.recommendlist = data.data.list;
-					setTimeout($this.initScroll,50);
 				}
 			})
 		},
-		toDetail: function(id){
-			// console.log(id);
+		toDetail: function(item){
 			this.$router.push({
 				name:'recommend_detail',
 				params:{
-					id:id,
+					id:item.dissid,
 					showIndex:false
 				}
 			})
 		},
-		initScroll: function(){
-			if(!this.sliderlink.length || !this.recommendlist.length) return;
-			const slider = document.querySelector('.slider_wrap').clientHeight;
-			const list = document.querySelector('.recommend_list').clientHeight;
-
-			// document.querySelector('.recommend').style.height = slider+list+70 +'px';  //有个70的差 bug
-
-			if(!this.scroll){
-				this.scroll = new BScroll('.recommendContent');
-			}else{
-				this.scroll.refresh();
+		refreshImage:function(){
+			if(!this.imageLoad){
+				this.$refs.scroll.refresh();
+				this.imageLoad = true;
 			}
-		}
-	},
-	watch:{
-		recommendlist:function(){
-				
 		}
 	},
 	components:{
 		Slider,
-		List
+		Scroll
 	}
 }
 </script>
@@ -109,9 +109,9 @@ export default{
 	left:0
 	width:100%
 	height:100%
-.recommendContent
+.recommend_content
 	width:100%
-	// height:100%
+	height:100%
 	overflow:hidden
 .recommend
 	.recommend_list
@@ -121,5 +121,35 @@ export default{
 			text-align: center
 			color: $font_highlight_color
 			font-weight: bold
-		
+		.list
+			padding:20px
+			min-height:1px
+			box-sizing:border-box
+		.list_item
+			// height:70px
+			box-sizing:border-box
+		.item_wrap
+			display:flex
+			margin-bottom:15px
+			.left 
+				flex-grow:0
+				flex-shrink:1
+				img
+					background-color:#fff
+			.right
+				padding-left:15px
+				flex-grow:4
+				flex-shrink:1
+				p
+					&.title
+						padding-top:5px
+						color:$font_normal_color
+						text-align:left
+						font-size:$font_title_size
+						padding-bottom:5px
+					&.content
+						color:$font_content_color
+						text-align:left
+						font-size:$font_normal_size
+						line-height:20px
 </style>

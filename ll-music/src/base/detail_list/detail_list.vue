@@ -149,7 +149,9 @@ listh = 60px
 										
 	.list			
 		width:100%
-		
+		padding:20px
+		min-height:1px
+		box-sizing:border-box
 		.listitem
 			display:flex
 			height:listh

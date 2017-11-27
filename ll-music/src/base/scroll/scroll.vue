@@ -1,8 +1,6 @@
 <template>
-	<div class="scroll">
-		<div class="scroll_wrap" ref="scrollwrap">
-			<slot></slot>
-		</div>
+	<div class="scroll" ref="scroll">
+		<slot></slot>
 	</div>
 </template>
 <script type="text/javascript">
@@ -12,6 +10,18 @@ export default({
 		direction:{
 			type: String,
 			default:'Y'
+		},
+		data:{
+			type: Array,
+			default:null
+		},
+		probeType:{
+			type: Number,
+			default:1
+		},
+		click:{
+			type: Boolean,
+			default:true
 		}
 	},
 	mounted:function(){
@@ -22,22 +32,22 @@ export default({
 	},
 	methods:{
 		initScroll : function(){
-			this.scroll = new BScroll('.scroll');
-		},
-		init : function(){
-			var dirct = this.direction;
-			if(dirct == 'X'){
-				this._initWidth();
-			}else if(dirct == 'Y'){
-				this._initHeight();
-			}
-		},
-		_initWidth : function(){
-			var item = this.$refs.scrollwrap.children;
+			if(!this.$refs.scroll) return;
 
+			this.scroll = new BScroll(this.$refs.scroll,{
+				probeType: this.probeType,
+				click: this.click
+			});
 		},
-		_initHeight : function(){
-
+		refresh : function(){
+			this.scroll && this.scroll.refresh();
+		}
+	},
+	watch:{
+		data:function(){
+			setTimeout(()=>{
+				this.refresh();
+			},20)
 		}
 	}
 })	

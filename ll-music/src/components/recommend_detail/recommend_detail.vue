@@ -1,7 +1,9 @@
 <template>
-	<div class="recom_detail">
-		<detail></detail>
-	</div>
+	<transition name="detail">
+		<div class="recom_detail">
+			<detail></detail>
+		</div>
+	</transition>
 </template>
 <script type="text/javascript">
 import Detail from 'base/detail_list/detail_list'
@@ -24,4 +26,8 @@ export default{
 	position:fixed
 	top:0
 	left:0
+.detail-enter-active,.detail-leave-active
+	transition:all 0.3s
+.detail-enter,.detail-leave-to
+	transform: translate3d(100%,0,0)
 </style>

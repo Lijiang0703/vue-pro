@@ -1,11 +1,25 @@
 <template>
-	<div class="singer">
-
-	</div>
+	<Scroll class="singer" :data="singerlist">
+		<ul>
+			<li v-for="item in singerlist" class="list">
+				<div class="title" v-text="item.title"></div>
+				<div class="items">
+					<ul>
+						<li v-for="data in item.data">
+							<img v-lazy="data.avatar" alt="" class="avatar" width="60" height="60">
+							<p class="name" v-text="data.name"></p>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</Scroll>
 </template>
 
 <script type="text/javascript">
 import * as api from 'common/js/singer'
+import Scroll from 'base/scroll/scroll'
+
 export default{
 	data(){
 		return{
@@ -16,7 +30,7 @@ export default{
 		var $this = this;
 		api.getSinger().then(function(data){
 			if(data.code == 0){
-				$this.singerlist = $this.serializeSinger(data.data.list);
+				$this.serializeSinger(data.data.list);
 			}
 		})
 	},
@@ -55,7 +69,7 @@ export default{
 			res.sort(function(a,b){
 				return a.title.charCodeAt(0)-b.title.charCodeAt(0);
 			})
-
+			console.log(res);
 			this.singerlist = res;
 		},
 		getBasic:function(singer){
@@ -69,10 +83,23 @@ export default{
 	},
 	components:{
 		// detail
+		Scroll
 	}
 }
 </script>
 	
 <style lang="stylus">
-	
+.singer
+	position:fixed
+	top:96px
+	height:100%
+	width:100%
+	overflow:hidden
+	.items
+		li
+			display:flex
+			.avatar
+				border-radius:50%
+			.name
+				text-align:left
 </style>

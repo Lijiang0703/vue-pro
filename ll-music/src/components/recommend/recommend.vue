@@ -1,7 +1,7 @@
 <template>
 	<div class="recommendWrap">
 		<Scroll class="recommend_content" ref="scroll" :data="recommendlist">
-			<div class="recommend" >
+			<div class="recommend">
 				<div class="slider_wrap" v-if="sliderlink.length">
 					<slider>
 						<div v-for="item in sliderlink">
@@ -30,8 +30,8 @@
 					</div>
 				</div>
 			</div>
-			<router-view></router-view>
 		</Scroll>
+		<router-view></router-view>
 	</div>
 </template>
 
@@ -89,8 +89,8 @@ export default{
 		},
 		refreshImage:function(){
 			if(!this.imageLoad){
-				this.$refs.scroll.refresh();
-				this.imageLoad = true;
+				// this.$refs.scroll.refresh();
+				// this.imageLoad = true;
 			}
 		}
 	},
@@ -106,28 +106,26 @@ export default{
 .recommendWrap
 	position:fixed
 	top:96px
-	left:0
+	// left:0
+	bottom:0
 	width:100%
-	height:100%
+	// height:100%
 .recommend_content
-	width:100%
+	// width:100%
 	height:100%
 	overflow:hidden
 .recommend
 	.recommend_list
-		box-sizing:border-box
-		padding-top:20px
+		padding:20px
 		.hg_title
+			margin-bottom:20px
 			text-align: center
 			color: $font_highlight_color
 			font-weight: bold
 		.list
-			padding:20px
 			min-height:1px
-			box-sizing:border-box
 		.list_item
-			// height:70px
-			box-sizing:border-box
+			height:70px
 		.item_wrap
 			display:flex
 			margin-bottom:15px

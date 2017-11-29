@@ -14,7 +14,7 @@
 		padding:5px 10px
 		text-align:right
 		height:60px
-		box-sizing:border-box
+		// box-sizing:border-box
 		
 		.title
 			color: #fff

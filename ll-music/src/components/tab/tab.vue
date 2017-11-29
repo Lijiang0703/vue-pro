@@ -26,7 +26,7 @@
 .tab
 	padding:10px
 	height:36px
-	box-sizing:border-box
+	// box-sizing:border-box
 	.tab_list
 		width:100%
 		display:flex

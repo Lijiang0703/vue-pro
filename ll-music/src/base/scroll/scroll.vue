@@ -44,11 +44,11 @@ export default({
 		}
 	},
 	watch:{
-		data:function(){
-			setTimeout(()=>{
-				this.refresh();
-			},20)
-		}
+		// data:function(){
+		// 	setTimeout(()=>{
+		// 		// this.refresh();
+		// 	},20)
+		// }
 	}
 })	
 </script>

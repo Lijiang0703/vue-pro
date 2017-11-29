@@ -26,3 +26,5 @@
 	axios似乎不支持jsop（待验证）
 11.27
 	vue transition组件实现过渡效果
+11.29
+	被.recommendWrap的样式问题困扰了一个多礼拜，list滚动到底部有一个item高度的距离显示不了。经检查发现，postion:fixed的时候没有定义bottom:0,导致recommendWrap的高度多了一部分，又因为overflow:hidden了，所以未能正确显示出来。position:fixed可以很好的设置元素的高度不超过页面的高度，但是要注意使用中的问题

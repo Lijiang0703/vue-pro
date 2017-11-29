@@ -30,6 +30,9 @@
 					</div>
 				</div>
 			</div>
+			<div class="loadcontainer">
+				<load v-show="!recommendlist.length"></load>
+			</div>
 		</Scroll>
 		<router-view></router-view>
 	</div>
@@ -39,6 +42,7 @@
 import * as api from 'common/js/banner'
 import Slider from 'base/slider/slider'
 import Scroll from 'base/scroll/scroll'
+import Load from 'base/load/load'
 
 export default{
 	data(){
@@ -96,7 +100,8 @@ export default{
 	},
 	components:{
 		Slider,
-		Scroll
+		Scroll,
+		Load
 	}
 }
 </script>
@@ -114,9 +119,12 @@ export default{
 	// width:100%
 	height:100%
 	overflow:hidden
+.loadcontainer
+	position:relative
 .recommend
 	.recommend_list
 		padding:20px
+		position:relative
 		.hg_title
 			margin-bottom:20px
 			text-align: center
@@ -124,6 +132,7 @@ export default{
 			font-weight: bold
 		.list
 			min-height:1px
+			// position:relative
 		.list_item
 			height:70px
 		.item_wrap

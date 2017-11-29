@@ -30,8 +30,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="loadcontainer">
-				<load v-show="!recommendlist.length"></load>
+			<div class="loadcontainer" v-show="!recommendlist.length">
+				<load></load>
 			</div>
 		</Scroll>
 		<router-view></router-view>
@@ -120,7 +120,9 @@ export default{
 	height:100%
 	overflow:hidden
 .loadcontainer
-	position:relative
+	position:absolute
+	width:100%
+	top:50%
 .recommend
 	.recommend_list
 		padding:20px

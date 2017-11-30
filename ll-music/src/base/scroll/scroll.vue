@@ -7,10 +7,10 @@
 import BScroll from 'better-scroll'
 export default({
 	props:{
-		direction:{
-			type: String,
-			default:'Y'
-		},
+		// direction:{
+		// 	type: String,
+		// 	default:'Y'
+		// },
 		data:{
 			type: Array,
 			default:null
@@ -33,14 +33,22 @@ export default({
 	methods:{
 		initScroll : function(){
 			if(!this.$refs.scroll) return;
+			const $this = this;
 
 			this.scroll = new BScroll(this.$refs.scroll,{
 				probeType: this.probeType,
 				click: this.click
 			});
+			this.scroll.on('scroll',function(p){
+				// console.log(p);
+				$this.$emit("scroll",p);
+			})
 		},
 		refresh : function(){
 			this.scroll && this.scroll.refresh();
+		},
+		scrollToElement:function(el, time, offsetX, offsetY, easing){
+			this.scroll && this.scroll.scrollToElement(el, time, offsetX, offsetY, easing);
 		}
 	},
 	watch:{

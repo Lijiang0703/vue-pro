@@ -1,5 +1,8 @@
 <template>
 	<div class="singer">
+		<div class="loadcontainer" v-show="!singerlist.length">
+			<load></load>
+		</div>
 		<Scroll class="singerlist" :data="singerlist" ref="singerlist" :probeType="3" @scroll="scrollEvent">
 			<ul ref="listwrap">
 				<li v-for="item in singerlist" class="list">
@@ -15,13 +18,13 @@
 				</li>
 			</ul>
 		</Scroll>
+		<div class="rightbar" @touchmove.prevent.stop="moveTolist" @touchstart.stop="toList">
+				<ul ref="titlelist">
+					<li v-for="(item,key) in titlelist" v-text="item.slice(0,1)" :class="{active:current == key}" :data-index="key" ></li>
+				</ul>
+			</div>
 		<div class="fixed_title">
 			<p class="title" v-text="getCurrentTitle()"></p>
-		</div>
-		<div class="leftbar">
-			<ul>
-				<li v-for="(item,key) in titlelist" v-text="item.slice(0,1)" :class="{active:current == key}" @click="toList(item,key)"></li>
-			</ul>
 		</div>
 	</div>
 </template>
@@ -29,6 +32,7 @@
 <script type="text/javascript">
 import * as api from 'common/js/singer'
 import Scroll from 'base/scroll/scroll'
+import Load from 'base/load/load'
 
 export default{
 	data(){
@@ -40,6 +44,7 @@ export default{
 	},
 	created:function(){
 		const $this = this;
+		this.touch = {};
 		api.getSinger().then(function(data){
 			if(data.code == 0){
 				$this.serializeSinger(data.data.list);
@@ -82,7 +87,6 @@ export default{
 			res.sort(function(a,b){
 				return a.title.charCodeAt(0)-b.title.charCodeAt(0);
 			})
-			// console.log(res);
 			this.singerlist = hot.concat(res);
 		},
 		getTitle:function(){
@@ -101,11 +105,36 @@ export default{
 				avatar:avatar
 			};
 		},
-		toList:function(item,key){
-			const list = document.querySelectorAll('.list');
-			const el = list[key];
-			this.current = key;
-			this.$refs.singerlist.scrollToElement(el,10);
+		toList:function(e){
+			const target = e.target;
+			const index = target.getAttribute('data-index');
+			
+			this.touch.y1 = e.touches[0].pageY;
+			this.touch.index = index;
+			if(Number(index)){	
+				this.scrollTo(index);
+			}
+		},
+		moveTolist:function(e){
+			const touch = e.touches[0];
+
+			const y = touch.pageY - this.touch.y1;
+			const item_height = this.$refs.titlelist.querySelector('li').clientHeight;
+
+			const dur = parseInt(y /item_height) || 0;
+
+			if(dur>=1){				
+				const index = Number(this.touch.index) + Number(dur);
+				this.scrollTo(index);
+			}
+		},
+		scrollTo:function(index){
+			const list = this.$refs.listwrap.children;
+
+			if(index!=undefined && this.current != index){
+				this.current = Number(index);
+				this.$refs.singerlist.scrollToElement(list[index],0);
+			}
 		},
 		getCurrentTitle:function(){
 			const current = this.titlelist[this.current];
@@ -126,24 +155,23 @@ export default{
 		toSingerDetail:function(){
 
 		}
-	},
+	},   
 	components:{
-		Scroll
+		Scroll,
+		Load
+	},
+	watch:{
+		current:function(val){
+
+		}
 	}
 }
 </script>
 	
 <style lang="stylus">
 @import '~common/style/variable'
-.singer
-	position:relative
 .singerlist
-	position:fixed
-	top:96px
-	// height:100%
-	width:100%
-	overflow:hidden
-	bottom:0
+	height:100%
 	.title
 		background:$background_content
 		padding:5px 10px 5px 20px 
@@ -169,7 +197,7 @@ export default{
 		padding:5px 10px 5px 20px 
 		font-size:$font_title_size
 		color:$font_normal_color
-.leftbar
+.rightbar
 	position:fixed
 	text-align:center
 	right:5px
@@ -181,9 +209,9 @@ export default{
 	font-weight:$font_bold_weight
 	border-radius:5px
 	margin:20px 0
+	cursor:pointer
 	li
 		padding-top:5px
-		cursor:pointer
 	& .active
 		color:$font_highlight_color
 </style>

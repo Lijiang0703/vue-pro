@@ -124,7 +124,7 @@ listh = 60px
 			.wrap
 				border:2px solid $font_highlight_color
 				border-radius:20px
-				width:150px
+				// width:150px
 				padding:5px ptop
 				margin-left:50%
 				transform:translateX(-50%)

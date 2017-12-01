@@ -109,20 +109,16 @@ export default{
 <style lang="stylus">
 @import '~common/style/variable'
 .recommendWrap
-	position:fixed
-	top:96px
-	// left:0
-	bottom:0
-	width:100%
+	// position:fixed
+	// top:96px
+	// // left:0
+	// bottom:0
+	// width:100%
 	// height:100%
 .recommend_content
 	// width:100%
 	height:100%
-	overflow:hidden
-.loadcontainer
-	position:absolute
-	width:100%
-	top:50%
+	// overflow:hidden
 .recommend
 	.recommend_list
 		padding:20px

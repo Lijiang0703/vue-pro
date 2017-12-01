@@ -1,22 +1,32 @@
 <template>
 	<div class="rank">
-		<div class="rank_item" v-for="item in ranks">
-			<div class="left">
-				<img :src="item.picUrl" alt="" width='100' height='100'>
-			</div>
-			<div class="right">
-				<ul>
-					<li v-for="(list,key) in item.songList">
-						<p v-text="key+1+' '+list.songname+'-'+list.singername"></p>
-					</li>
-				</ul>
-			</div>
+		<div class="loadcontainer" v-show="!ranks.length">
+			<load></load>
 		</div>
+		<scroll style="height:100%">
+			<div class="rankwrap">
+				<div class="rank_item" v-for="item in ranks">
+					<div class="left">
+						<img :src="item.picUrl" alt="" width='100' height='100'>
+					</div>
+					<div class="right">
+						<ul>
+							<li v-for="(list,key) in item.songList">
+								<p v-text="key+1+' '+list.songname+'-'+list.singername"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</scroll>
 	</div>
 </template>
 
 <script type="text/javascript">
 import * as api from 'common/js/banner'
+import Scroll from 'base/scroll/scroll'
+import Load from 'base/load/load'
+
 export default{
 	data(){
 		return {
@@ -38,12 +48,22 @@ export default{
 				}
 			})
 		}
+	},
+	components:{
+		Scroll,
+		Load
 	}
 }
 </script>
 
 <style lang="stylus">
 @import '~common/style/variable'
+.rank
+	// position:fixed
+	// top:96px
+	// // left:0
+	// bottom:0
+	// width:100%
 .rank_item
 	padding:20px 10px
 	display:flex

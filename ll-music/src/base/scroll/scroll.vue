@@ -22,6 +22,10 @@ export default({
 		click:{
 			type: Boolean,
 			default:true
+		},
+		listenScroll:{
+			type: Boolean,
+			default:false
 		}
 	},
 	mounted:function(){
@@ -39,10 +43,11 @@ export default({
 				probeType: this.probeType,
 				click: this.click
 			});
-			this.scroll.on('scroll',function(p){
-				// console.log(p);
-				$this.$emit("scroll",p);
-			})
+			if(this.listenScroll)
+				this.scroll.on('scroll',function(p){
+					// console.log(p);
+					$this.$emit("scroll",p);
+				})
 		},
 		refresh : function(){
 			this.scroll && this.scroll.refresh();

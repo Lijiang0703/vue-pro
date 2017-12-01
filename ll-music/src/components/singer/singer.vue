@@ -3,7 +3,14 @@
 		<div class="loadcontainer" v-show="!singerlist.length">
 			<load></load>
 		</div>
-		<Scroll class="singerlist" :data="singerlist" ref="singerlist" :probeType="3" @scroll="scrollEvent">
+		<Scroll 
+			class="singerlist" 
+			ref="singerlist" 
+			:data="singerlist" 
+			:probeType="3" 
+			:listenScroll= "true"
+			@scroll="scrollEvent" 
+		>
 			<ul ref="listwrap">
 				<li v-for="item in singerlist" class="list">
 					<p class="title" v-text="item.title"></p>
@@ -23,8 +30,8 @@
 					<li v-for="(item,key) in titlelist" v-text="item.slice(0,1)" :class="{active:current == key}" :data-index="key" ></li>
 				</ul>
 			</div>
-		<div class="fixed_title">
-			<p class="title" v-text="getCurrentTitle()"></p>
+		<div class="fixed_title" v-show="currentTitle">
+			<p class="title" v-text="currentTitle"></p>
 		</div>
 	</div>
 </template>
@@ -34,11 +41,13 @@ import * as api from 'common/js/singer'
 import Scroll from 'base/scroll/scroll'
 import Load from 'base/load/load'
 
+const ITEMTITLE = 26
 export default{
 	data(){
 		return{
 			singerlist:[],
 			titlelist:[],
+			scrolly:0, //是否开始滚动
 			current:0
 		}
 	},
@@ -51,6 +60,15 @@ export default{
 				$this.getTitle();
 			}
 		})
+	},
+	computed:{
+		currentTitle:function(){
+			//这里有个很重要的点，就是scroll返回的这个this.scrolly的值，当值<0的表示top有滚动隐藏，否则没有. 即：元素可视区域与元素顶端的差距
+			if(this.scrolly>0) return "";
+
+			const current = this.titlelist[this.current];
+			return current;
+		}
 	},
 	methods:{
 		serializeSinger:function(singerlist){
@@ -132,24 +150,36 @@ export default{
 			const list = this.$refs.listwrap.children;
 
 			if(index!=undefined && this.current != index){
+				if(index<0) index = 0;
+				else if(index > list.length) index = list.length;
 				this.current = Number(index);
 				this.$refs.singerlist.scrollToElement(list[index],0);
 			}
 		},
-		getCurrentTitle:function(){
-			const current = this.titlelist[this.current];
-			return current;
-		},
 		scrollEvent:function(position){
-			const y = position.y;
+			const y = this.scrolly = position.y;
 			const lists = this.$refs.listwrap.children;
+			
 			let scrolly = 0;
+			let space = 0;
+			let title = document.querySelector('.fixed_title')
+
 			for(let i=0;i<lists.length;i++){
 				const height = lists[i].clientHeight;
-				if(Math.abs(y) < height+scrolly){
+				scrolly += height;
+				if( -y < scrolly){
 					this.current = i;
+					title.style.top = 0;
 					break;
-				}else scrolly+= height;
+				}
+			}
+			//做过渡效果：
+			// 当滚动到距离每个item底部itemtitle距离时，给予fixedtitle动画
+			if(y<0){
+				space = scrolly+y;
+				if(space > 0 && space<ITEMTITLE){
+					title.style.top = -ITEMTITLE+space+'px';
+				}
 			}
 		},
 		toSingerDetail:function(){

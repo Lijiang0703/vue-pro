@@ -23,3 +23,22 @@ export function getSinger(){
 		return Promise.resolve(response.data);
 	})
 }
+export function getSingerSong(id,num){
+	const common = {
+		format:'jsonp',
+		platform:'yqq',
+		needNewCode:0,
+		singermid:id,
+		order:'listen',
+		begin:0,
+		hostUin:0,
+		num:num,
+		songstatus:1
+	}
+	const data = Object.assign({},common,DEFAULT)
+	return axios.get('/api/getsingersong',{
+		params:data
+	}).then((response)=>{
+		return Promise.resolve(response.data);
+	})
+}

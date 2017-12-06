@@ -18,7 +18,7 @@
 						<ul>
 							<li v-for="data in item.data">
 								<img v-lazy="data.avatar" alt="" class="avatar" width="60" height="60">
-								<p class="name" v-text="data.name" @click="toSingerDetail"></p>
+								<p class="name" v-text="data.name" @click="toSingerDetail(data)"></p>
 							</li>
 						</ul>
 					</div>
@@ -116,7 +116,7 @@ export default{
 			}
 		},
 		getBasic:function(singer){
-			const avatar = "https://y.gtimg.cn/music/photo_new/T001R300x300M000"+singer.Fsinger_mid+".jpg?max_age=2592000"
+			const avatar = `https://y.gtimg.cn/music/photo_new/T001R300x300M000${singer.Fsinger_mid}.jpg?max_age=2592000`
 			return {
 				name:singer.Fsinger_name,
 				id:singer.Fsinger_id,
@@ -182,8 +182,13 @@ export default{
 				}
 			}
 		},
-		toSingerDetail:function(){
-
+		toSingerDetail:function(item){
+			this.$router.push({
+				name:'singer_detail',
+				params:{
+					id:item.id
+				}
+			})
 		}
 	},   
 	components:{

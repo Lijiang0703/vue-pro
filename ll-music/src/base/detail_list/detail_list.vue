@@ -55,12 +55,11 @@ export default{
 		},
 		getList:function(){
 			var $this = this;
-			api.getSongList(this.$route.params.id).then(function(data){
-				if(data.code == 0){
-					var _data = data.cdlist[0];
-					$this.logo = _data.logo;
-					$this.topTitle = _data.dissname
-					$this.lists = _data.songlist;
+			this.$store.dispatch('getsong',this.$route.params.id).then(function(data){
+				if(data){
+					$this.logo = data.logo;
+					$this.topTitle = data.dissname;
+					$this.lists = data.songlist;
 				}
 			})
 		},

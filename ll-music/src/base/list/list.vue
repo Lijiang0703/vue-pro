@@ -1,108 +1,96 @@
 <template>
-	<div class="list">
-		<ul class="list_container">
-			<li v-for="item in lists" class="list_item">
-				<div class="item_wrap" @click="toDetail(item)">
-					<div class="left">
-						<!-- <img src="../../common/image/logo.png" alt="" width="60" height="60"> -->
-						<img :src="item.imgurl" alt=""  width="60" height="60">
-					</div>
-					<div class="right">
-						<p class="title" v-text="item.creator.name">还不是因为你长的好看</p>
-						<p class="content" v-text="item.dissname">励志：纵使磨难虐我千遍，我依然微笑如初</p>
-					</div>
-				</div>
-			</li>
-		</ul>
+<div class="songlist">
+	<div class="loadcontainer" v-show="!lists.length">
+		<load></load>
 	</div>
+	<ul>
+		<li v-for="(item,key) in lists">
+			<div class="listitem">
+				<div class="left" v-if="showIndex">
+					<p class="index" v-text="key"></p>
+				</div>
+				<div class="right" @click="palyImmediate(item.id)">
+					<p class="title" v-text="item.title"></p>
+					<p class="content" v-text="item.singer[0].title"></p>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
 </template>
 <script type="text/javascript">
-import BScroll from 'better-scroll'
+import Load from 'base/load/load'
+import Scroll from 'base/scroll/scroll'
+
 export default{
-	props:['lists'],
+	props:{
+		lists:{
+			type:Array,
+			default:[]
+		},
+		showIndex:{
+			type:Boolean,
+			default:false
+		},
+		listenScroll:{
+			type:Boolean,
+			default:false
+		},
+		probeType:{
+			type:Number,
+			default:1
+		}
+	},
 	created: function(){
 
 	},
 	mounted:function(){
-		// var $this = this;
-		// this.$nextTick(function(){
-			// $this.setContentH();
-			// $this.initScroll();
-		// })
+		
 	},
 	methods:{
-		toDetail:function(item){
-			this.$emit('checked',item.dissid);
-		},
-		// initScroll:function(){
-		// 	var $this = this;
-		// 	setTimeout(function(){
-		// 		if(!$this.scroll){
-		// 			$this.scroll = new BScroll('.list');
-		// 		}else{
-		// 			$this.scroll.refresh();
-		// 		}
-		// 	},20)
-		// },
-		// setContentH:function(){
-		// 	var size = this.getChildSize();
-		// 	var wrap = document.querySelector('.list_container');
-		// 	var $this = this;
-		// 	if(size)
-		// 	wrap.style.height = size.height * this.lists.length + 'px';
-		// },
-		// getChildSize:function(){
-		// 	var item = document.querySelector('.list_item');
-		// 	if(item){
-		// 		var height = item.offsetHeight;
-		// 		var width = item.offsetWidth;
-		// 		return {
-		// 			width:width,
-		// 			height:height
-		// 		}
-		// 	}
-		// }
+		palyImmediate:function(id){
+
+		}
+	},
+	components:{
+		Load,
+		Scroll
 	}
-	// watch:{
-	// 	lists:function(){
-	// 		 // this.setContentH();
-	// 	}
-	// }
 }	
 </script>
 <style lang='stylus'>
 @import '~common/style/variable'
-.list
-	padding:20px
-	min-height:1px
-	// height:350px
+ptop = 10px
+listh = 60px
+.songlist			
 	// overflow:hidden
-	box-sizing:border-box
-.list_item
-	height:70px
-	box-sizing:border-box
-.item_wrap
-	display:flex
-	margin-bottom:15px
-	.left 
-		flex-grow:0
-		flex-shrink:1
-		img
-			background-color:#fff
-	.right
-		padding-left:15px
-		flex-grow:4
-		flex-shrink:1
-		p
-			&.title
-				padding-top:5px
-				color:$font_normal_color
-				text-align:left
-				font-size:$font_title_size
-				padding-bottom:5px
-			&.content
-				color:$font_content_color
-				text-align:left
-				font-size:$font_normal_size
+	ul 
+		padding:20px
+	.listitem
+		display:flex
+		height:listh
+		.left
+			flex-grow:1
+			text-align:center
+			color:$font_highlight_color
+			p
+				margin-top:50%
+				transform:translateY(-50%)
+				-webkit-transform:translateY(-50%)
+				height:20px
 				line-height:20px
+				font-size:$font_navbar_size
+				font-weight:400
+		.right
+			flex-grow:3
+			flex-shrink:1
+			.title
+				margin-top:5px
+				color:$font_normal_color
+				font-size:$font_title_size
+			.content
+				font-size:$font_navbar_size
+				margin-top:ptop
+				color:$font_content_color
+				font-size:$font_normal_size
 </style>

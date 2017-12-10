@@ -26,6 +26,10 @@ export default({
 		listenScroll:{
 			type: Boolean,
 			default:false
+		},
+		pullingUp:{
+			type: Boolean,
+			default:false
 		}
 	},
 	mounted:function(){
@@ -47,6 +51,10 @@ export default({
 				this.scroll.on('scroll',function(p){
 					// console.log(p);
 					$this.$emit("scroll",p);
+				})
+			if(this.pullingUp)
+				this.scroll.on('pullingUp',function(p){
+					$this.$emit('pullingUp',p);
 				})
 		},
 		refresh : function(){

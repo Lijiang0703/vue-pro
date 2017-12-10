@@ -1,10 +1,10 @@
 <template>
 	<div class="detail">
-		<div class="topbanner" :style="{'background-image':'url('+logo+')'}">
-			<div class="bar">
-				<img src="../../common/image/back.png" alt="" class="back" @click="back">
-				<span class="title" v-text="topTitle"></span>
-			</div>
+		<div class="bar" ref="bar">
+			<img src="../../common/image/back.png" alt="" class="back" @click="back">
+			<span class="title" v-text="topTitle"></span>
+		</div>
+		<div class="topbanner" :style="{'background-image':'url('+logo+')'}"  ref="baner">
 			<div class="play_random">
 				<div class="wrap" @click="palyByRandom">
 					<img src="../../common/image/play.png" alt="">
@@ -13,10 +13,10 @@
 			</div>
 			<div class="mask"></div>
 		</div>
-		<Scroll :listenScroll="true" :probeType="3" @scroll="scroll" class="listwrap">
+		<div class="backlayer" ref="backlayer"></div>
+		<Scroll :listenScroll="true" :probeType="3" :pullingUp="true" @pullingUp="pullUp" @scroll="scroll" class="listwrap" >
 			<list :lists="lists"></list>
 		</Scroll>
-		<div class="backlayer" ref="backlayer"></div>
 	</div>
 </template>
 <script type="text/javascript">
@@ -64,12 +64,40 @@ export default{
 		},
 		scroll:function(pos){
 			this.scrollY = pos.y;
+		},
+		pullUp:function(p){
+			console.log(p);
+			this.scrollY = pos.y;
 		}
 	},
 	watch:{
 		scrollY:function(val){
 			const top = this.$refs.backlayer.offsetTop;
-			this.$refs.backlayer.style.top =  top + val +'px';
+			const bar = this.$refs.bar.clientHeight;
+			const baner = this.$refs.baner.clientHeight;
+			let index,scale;
+
+			if(val<0){
+				if(this.y== undefined) this.y = baner;
+				const backheight = Math.max(this.y+val,bar);
+				if(this.y+val < bar){
+					index = 12;
+					this.$refs.baner.style['padding-top'] = 0;
+					this.$refs.baner.children[0].style.display ='none';
+				}else {
+					index = 0;
+					this.$refs.baner.style['padding-top'] = '70%';
+					this.$refs.baner.children[0].style.display ='block';
+				}
+				this.$refs.baner.style['z-index'] = index;
+				this.$refs.baner.style.height = backheight +'px';
+				this.$refs.backlayer.style.transform =  'translate3d(0,'+val+'px,0)';
+			}else{
+				//放大动画
+				// scale = baner/val/10;
+				// this.$refs.baner.style.transform = 'scale('+scale+')';
+			}
+
 		}
 	},
 	components:{
@@ -95,9 +123,9 @@ topH = 250px
 	.backlayer
 		width:100%
 		height:100%
-		position:absolute
-		top:topH
-		z-index:9
+		position:relative
+		// top:topH
+		// z-index:10
 		background:$backround_color
 	.listwrap
 		width:100%
@@ -105,42 +133,43 @@ topH = 250px
 		top:topH
 		bottom:0
 		z-index:10
+	.bar
+		position:fixed
+		z-index:50
+		top:0
+		left:0
+		text-align:center
+		width:100%
+		height:itop
+		display:flex
+		padding:ptop pleft
+		.back
+			width:imgsize
+			height:imgsize
+		.title
+			text-align:center
+			flex-grow:1
+			height:imgsize
+			line-height:imgsize
+			overflow:hidden
+			white-space: nowrap
+			text-overflow:ellipsis
+			-webkit-text-overflow:ellipsis
+			font-size:$font_navbar_size
 	.topbanner
 		width:100%
-		// background:#666
+		height:0
+		padding-top:70%
 		background-repeat:no-repeat
 		background-size:cover
-		height:topH
+		// height:topH
 		position:relative
-		.bar
-			position:fixed
-			z-index:2
-			top:0
-			left:0
-			text-align:center
-			width:100%
-			height:itop
-			display:flex
-			padding:ptop pleft
-			.back
-				width:imgsize
-				height:imgsize
-			.title
-				text-align:center
-				flex-grow:1
-				height:imgsize
-				line-height:imgsize
-				overflow:hidden
-				white-space: nowrap
-				text-overflow:ellipsis
-				-webkit-text-overflow:ellipsis
-				font-size:$font_navbar_size
 		.play_random
 			position:absolute
-			bottom: pleft
+			bottom: 20px
 			z-index:2
 			width:100%
-			margin-top:itop+ptop*2
+			// margin-top:itop+ptop*2
 			.wrap
 				border:2px solid $font_highlight_color
 				border-radius:20px
@@ -164,6 +193,6 @@ topH = 250px
 			left:0
 			top:0
 			background:#000
-			z-index:1
+			z-index:0
 			opacity:0.6
 </style>

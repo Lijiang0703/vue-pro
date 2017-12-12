@@ -77,8 +77,8 @@ export default{
 			const baner = this.$refs.baner.clientHeight;
 			let index,scale;
 
+			if(this.y== undefined) this.y = baner;
 			if(val<0){
-				if(this.y== undefined) this.y = baner;
 				const backheight = Math.max(this.y+val,bar);
 				if(this.y+val < bar){
 					index = 12;
@@ -94,8 +94,10 @@ export default{
 				this.$refs.backlayer.style.transform =  'translate3d(0,'+val+'px,0)';
 			}else{
 				//放大动画
-				// scale = baner/val/10;
-				// this.$refs.baner.style.transform = 'scale('+scale+')';
+				scale = val/this.y + 1;
+				this.$refs.baner.style.transform = 'scale('+scale+')';
+				this.$refs.baner.style['z-index'] = 12;				
+				this.$refs.backlayer.style.transform =  'translate3d(0,'+val+'px,0)';
 			}
 
 		}
@@ -192,6 +194,7 @@ topH = 250px
 			position:absolute
 			left:0
 			top:0
+			bottom:0
 			background:#000
 			z-index:0
 			opacity:0.6

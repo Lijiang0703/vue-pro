@@ -5,20 +5,15 @@ const actions = {
 
 	},
 	getsong:(context,payload)=>{
-		// return new Promise(function(resolve){
-		// 	api.getSongList(payload).then(function(data){
-		// 		if(data.code == 0){
-		// 			var result = data.cdlist[0];
-		// 			resolve&&resolve(result);
-		// 		}
-		// 	})
-		// })
 		return api.getSongList(payload).then(function(data){
 			if(data.code == 0){
 				var result = data.cdlist[0];
 				return Promise.resolve(result);
 			}
 		})
+	},
+	addToSonglist:(context,payload)=>{
+		context.state.songlist.push(payload);
 	}
 }
 export default actions

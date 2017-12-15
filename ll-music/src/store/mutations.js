@@ -1,6 +1,11 @@
+import type from './mutation_type'
+
 const mutations ={
-	setSinger :(state,payload)=>{
+	[type.SETSINGER] :(state,payload)=>{
 		state.singer = payload
+	},
+	[type.SETSTATE] :(state,payload)=>{
+		state[payload.key] = payload.value;
 	}
 }
 

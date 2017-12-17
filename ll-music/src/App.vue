@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <div class="top">
+    <div class="top" v-if="false">
       <m-header></m-header>
       <tab></tab>
     </div>
     <keep-alive>
-      <router-view></router-view>
+      <router-view  v-if="false"></router-view>
     </keep-alive>
     <player></player>
   </div>
@@ -28,4 +28,5 @@ export default {
 </script>
 
 <style lang='stylus'>
+
 </style>

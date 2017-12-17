@@ -1,10 +1,10 @@
 <template>
 	<div class="player">
-		<div class="fullscreen">
+		<div class="fullscreen" v-if="false">
 			<div class="playerback">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
-			<div class="songtitle">
+			<div class="songinfo">
 				<div class="packup"></div>
 				<div class="playing-title">風化する教室</div>
 				<div class="playing-singer">きのこ帝国 (蘑菇帝国)</div>
@@ -50,7 +50,15 @@
 			</div>
 		</div>
 		<div class="small">
-			
+			<div class="s-playing-img">
+				<img src="../../common/image/logo.png" alt="">
+			</div>
+			<div class="s-songinfo">
+				<div class="s-playing-title">風化する教室</div>
+				<div class="s-playing-singer">きのこ帝国 (蘑菇帝国)</div>
+			</div>
+			<div class="s-pause"></div>
+			<div class="s-songlist"></div>
 		</div>
 	</div>
 </template>
@@ -82,7 +90,7 @@ border-radius()
 
 .player
 	width:100%
-	background:$backround_color
+	// background:$background_content
 	.fullscreen
 		position:fixed
 		top:0
@@ -103,7 +111,7 @@ border-radius()
 				width:100%
 				height:100%
 				display:block
-		.songtitle
+		.songinfo
 			margin-right:0
 			margin-left:0
 			.playing-title,.playing-singer
@@ -178,6 +186,25 @@ border-radius()
 					text-align:right
 	.small
 		position:fixed
-		height:40px
+		width:100%
 		bottom:0
+		padding:10px 10px 10px 20px
+		background:$background_content
+		display:flex
+		align-items:center
+		.s-playing-img
+			flex:0 0 40px
+			img
+				width:100%
+				// background:#f09
+		.s-songinfo
+			padding-left:10px
+			.s-playing-title
+				color:$font_normal_color
+				font-size:$font_normal_size
+				font-weight:$font_nav_weight
+				margin-bottom:10px
+			.s-playing-singer
+				color:$font_content_color
+				font-size:$font_small_size
 </style>

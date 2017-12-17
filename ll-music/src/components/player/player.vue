@@ -60,6 +60,28 @@
 			<div class="s-pause"></div>
 			<div class="s-songlist"></div>
 		</div>
+		<div class="player-queue">
+			<div class="play-mode">
+				<i></i>
+				<span>单曲循环</span>
+			</div>
+			<div class="song-list">
+				<ul>
+					<li>
+						<i></i>
+						<span>Five(5)</span>
+						<i></i>
+						<i></i>
+					</li>
+				</ul>
+			</div>
+			<div class="addsong">
+				<span>+ 添加歌曲到队列</span>
+			</div>
+			<div class="close-list">
+				<span>关闭</span>
+			</div>
+		</div>
 	</div>
 </template>
 <script type="text/javascript">

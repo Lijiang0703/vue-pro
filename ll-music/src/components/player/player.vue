@@ -1,11 +1,13 @@
 <template>
 	<div class="player">
-		<div class="fullscreen" v-if="false">
-			<div class="playerback">
+		<div class="fullscreen">
+			<div class="playerback" @click="fulldown">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
 			<div class="songinfo">
-				<div class="packup"></div>
+				<div class="packup">
+					<img src="../../common/image/down.png" alt="">
+				</div>
 				<div class="playing-title">風化する教室</div>
 				<div class="playing-singer">きのこ帝国 (蘑菇帝国)</div>
 			</div>
@@ -32,24 +34,24 @@
 				</div>
 				<div class="control">
 					<div class="icon">
-						<i></i>
+						<img src="../../common/image/sequence.png" alt="">
 					</div>
 					<div class="icon">
-						<i></i>
+						<img src="../../common/image/backaway.png" alt="">
 					</div>
 					<div class="icon">
-						<i></i>
+						<img src="../../common/image/play.png" alt="" class="center">
 					</div>
 					<div class="icon">
-						<i></i>
+						<img src="../../common/image/forward.png" alt="">
 					</div>
 					<div class="icon">
-						<i></i>
+						<img src="../../common/image/songlist.png" alt="">
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="small">
+		<div class="small"  v-if="false">
 			<div class="s-playing-img">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
@@ -60,7 +62,7 @@
 			<div class="s-pause"></div>
 			<div class="s-songlist"></div>
 		</div>
-		<div class="player-queue">
+		<div class="player-queue"  v-if="false">
 			<div class="play-mode">
 				<i></i>
 				<span>单曲循环</span>
@@ -85,21 +87,31 @@
 	</div>
 </template>
 <script type="text/javascript">
+import {mapState} from 'Vuex'
 
 export default{
+	data(){
+		return{
+
+		}
+	},
 	mounted:function(){
 		const $this = this;
 		setTimeout(function(){
 			// $this.refs.imgWrap.style.transform = 'rotate'
 		},20)
+	},
+	methods:{
+		fulldown:function(){
+
+		}
 	}
 }
 </script>
 <style lang="stylus">
 @import '~common/style/index'
-showcenter(_width)
-	if _width
-		width:_width
+showcenter(_width = 100%)
+	width:_width
 	margin-left:50%
 	transform:translateX(-50%)
 vendors = webkit moz o ms official
@@ -136,6 +148,12 @@ border-radius()
 		.songinfo
 			margin-right:0
 			margin-left:0
+			.packup
+				position:absolute
+				left:5px
+				top:5px
+				img
+					width:50px
 			.playing-title,.playing-singer
 				padding:10px 5px 5px
 				text-align:center
@@ -206,6 +224,23 @@ border-radius()
 					text-align:left
 				.whole-time
 					text-align:right
+			.control
+				display:flex
+				align-items:center
+				showcenter(80%);
+				margin-top:30px
+				.icon
+					flex:1
+					img
+						width:40px
+						// border:3px solid $font_highlight_color
+						border-radius:50%
+						padding:5px
+						
+						&.center
+							width:50px
+					// &.center
+					// 	flex:2
 	.small
 		position:fixed
 		width:100%

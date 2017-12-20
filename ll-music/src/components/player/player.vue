@@ -1,6 +1,6 @@
 <template>
 	<div class="player">
-		<div class="fullscreen">
+		<div class="fullscreen" v-if="fullScreen">
 			<div class="playerback" @click="fulldown">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="small"  v-if="false">
+		<div class="small"  v-show="!fullScreen">
 			<div class="s-playing-img">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
@@ -87,13 +87,17 @@
 	</div>
 </template>
 <script type="text/javascript">
-import {mapState} from 'Vuex'
+import {mapState,mapMutations} from 'Vuex'
+import type from 'src/store/mutation_type'
 
 export default{
 	data(){
 		return{
 
 		}
+	},
+	computed:{
+		...mapState(['fullScreen'])
 	},
 	mounted:function(){
 		const $this = this;
@@ -104,7 +108,9 @@ export default{
 	methods:{
 		fulldown:function(){
 
-		}
+		},
+		...mapMutations([type.SETSTATE])
+
 	}
 }
 </script>

@@ -1,11 +1,11 @@
 <template>
 	<div class="player">
-		<div class="fullscreen" v-if="fullScreen">
-			<div class="playerback" @click="fulldown">
+		<div class="full" v-show="fullScreen">
+			<div class="playerback">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
 			<div class="songinfo">
-				<div class="packup">
+				<div class="packup"  @click="setFull">
 					<img src="../../common/image/down.png" alt="">
 				</div>
 				<div class="playing-title">風化する教室</div>
@@ -46,34 +46,37 @@
 						<img src="../../common/image/forward.png" alt="">
 					</div>
 					<div class="icon">
-						<img src="../../common/image/songlist.png" alt="">
+						<img src="../../common/image/love1.png" alt="">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="small"  v-show="!fullScreen">
-			<div class="s-playing-img">
+			<div class="s-playing-img" @click="setFull">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
 			<div class="s-songinfo">
 				<div class="s-playing-title">風化する教室</div>
-				<div class="s-playing-singer">きのこ帝国 (蘑菇帝国)</div>
+				<div class="s-playing-singer">きのこ帝国 (蘑菇帝国)</div>	
 			</div>
-			<div class="s-pause"></div>
-			<div class="s-songlist"></div>
+			<div class="s-control">
+				<img src="../../common/image/play.png" alt="">
+				<img src="../../common/image/songlist.png" alt="" @click="toggleList">
+			</div>
 		</div>
-		<div class="player-queue"  v-if="false">
+		<div class="player-queue" v-show="listshow">
 			<div class="play-mode">
-				<i></i>
+				<img src="../../common/image/sequence.png" alt="" class="mode">
 				<span>单曲循环</span>
+				<img src="../../common/image/trash.png" alt="" class="trash" @click="empty">
 			</div>
 			<div class="song-list">
 				<ul>
-					<li>
-						<i></i>
-						<span>Five(5)</span>
-						<i></i>
-						<i></i>
+					<li v-for="(item,key) in songlist">
+						<img src="../../common/image/play.png" alt="" class="playing" v-show="currentIndex == key">
+						<span class="song-title">Five(5)</span>
+						<img src="../../common/image/love1.png" alt="" class="love">
+						<span class="removesong" @click="remove(key)">X</span>
 					</li>
 				</ul>
 			</div>
@@ -81,23 +84,22 @@
 				<span>+ 添加歌曲到队列</span>
 			</div>
 			<div class="close-list">
-				<span>关闭</span>
+				<span  @click="toggleList">关闭</span>
 			</div>
 		</div>
 	</div>
 </template>
 <script type="text/javascript">
-import {mapState,mapMutations} from 'Vuex'
-import type from 'src/store/mutation_type'
+import {mapState,mapMutations} from 'vuex'
 
 export default{
 	data(){
 		return{
-
+			listshow:true
 		}
 	},
 	computed:{
-		...mapState(['fullScreen'])
+		...mapState(['fullScreen','currentIndex','songlist'])
 	},
 	mounted:function(){
 		const $this = this;
@@ -106,11 +108,17 @@ export default{
 		},20)
 	},
 	methods:{
-		fulldown:function(){
-
+		...mapMutations(['setState','setFull']),
+		toggleList:function(e){
+			this.listshow = !this.listshow
 		},
-		...mapMutations([type.SETSTATE])
-
+		remove:function(key){
+			var list = this.songlist;
+			this.list.splice(key,1);
+		},
+		empty:function(){
+			this.songlist = [];
+		}
 	}
 }
 </script>
@@ -130,8 +138,8 @@ border-radius()
 
 .player
 	width:100%
-	// background:$background_content
-	.fullscreen
+	background:$background_content
+	.full
 		position:fixed
 		top:0
 		left:0
@@ -144,6 +152,7 @@ border-radius()
 			bottom:0
 			left:0
 			right:0
+			cursor:pointer
 			-webkit-filter:blur(20px)
 			filter:blur(20px)
 			opacity:0.6
@@ -187,7 +196,7 @@ border-radius()
 			bottom:50px
 			.dots
 				text-align:center
-				margin-bottom:20px
+				margin-bottom:$block_padding
 				.dot
 					background:$font_normal_color
 					display:inline-block
@@ -254,12 +263,12 @@ border-radius()
 		padding:10px 10px 10px 20px
 		background:$background_content
 		display:flex
+		// justify-content:center
 		align-items:center
 		.s-playing-img
 			flex:0 0 40px
 			img
 				width:100%
-				// background:#f09
 		.s-songinfo
 			padding-left:10px
 			.s-playing-title
@@ -270,4 +279,67 @@ border-radius()
 			.s-playing-singer
 				color:$font_content_color
 				font-size:$font_small_size
+		.s-control
+			position:absolute
+			right:10px
+			img
+				margin-left:5px
+				display:inline-block
+				width:35px
+	.player-queue
+		background:$background_content
+		width:100%
+		position:fixed
+		bottom:0
+		z-index:10
+		color:$font_normal_color
+		padding-top:$block_padding
+		.play-mode
+			display:flex
+			align-items:center
+			padding:10px $block_padding
+			img.mode
+				width:40px
+				margin-right:$block_padding
+			img.trash
+				position:absolute
+				right:$block_padding
+				width:20px
+		.song-list
+			padding: 0 $block_padding
+			li
+				height:40px
+				display:flex
+				align-items:center
+				.playing
+					flex:0 0 15px
+					width:15px
+					margin-right:10px
+				.song-title
+					flex:1
+					overflow:hidden
+					text-overflow:ellipsis
+					white-space:nowrap
+				.removesong
+				.love
+					margin-left:10px
+					text-align:right
+					color:$font_highlight_color
+					width:20px
+					font-size:19px
+		.addsong
+			margin:30px 0
+			span
+				margin-left:50%
+				transform:translateX(-50%)
+				text-align:center
+				display:inline-block
+				border:1px solid $font_normal_color
+				border-radius:20px
+				padding:10px $block_padding
+		.close-list
+			background-color:$backround_color
+			text-align:center
+			padding:$block_padding
+			showcenter()
 </style>

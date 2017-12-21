@@ -1,6 +1,7 @@
 const type ={
 	SETSINGER:'setSinger',
-	SETSTATE:'setState'
+	SETSTATE:'setState',
+	SETFULL:'setFull'
 }
 
 export default type

@@ -85,6 +85,21 @@ router.get('/getsingersong',function(req,res,next){
     console.log(e);
   })
 })
+
+router.get('/addlove',function(req,res,next){
+  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg';
+  axios.get(url,{
+    headers:{
+      referer:'https://y.qq.com/n/yqq/playlist/3610164581.html',  //歌单地址
+      host:'c.yy.qq.com'
+    },
+    params:req.query
+  }).then((response)=>{
+    res.json(response.data);
+  }).catch((e)=>{
+    console.log(e);
+  })
+})  
 app.use('/api',router)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {

@@ -1,5 +1,5 @@
 <template>
-	<div class="player">
+	<div class="player" v-if="showPlayer">
 		<div class="full" v-show="fullScreen">
 			<div class="playerback">
 				<img src="../../common/image/logo.png" alt="">
@@ -95,11 +95,11 @@ import {mapState,mapMutations} from 'vuex'
 export default{
 	data(){
 		return{
-			listshow:true
+			listshow:false
 		}
 	},
 	computed:{
-		...mapState(['fullScreen','currentIndex','songlist'])
+		...mapState(['showPlayer','fullScreen','currentIndex','songlist'])
 	},
 	mounted:function(){
 		const $this = this;

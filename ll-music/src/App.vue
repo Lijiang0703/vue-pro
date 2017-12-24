@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div class="top"  v-if="false">
+    <div class="top">
       <m-header></m-header>
       <tab></tab>
     </div>
-    <keep-alive  v-if="false">
+    <keep-alive>
       <router-view></router-view>
     </keep-alive>
     <player></player>

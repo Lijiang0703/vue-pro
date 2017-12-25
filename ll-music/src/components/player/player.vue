@@ -1,5 +1,5 @@
 <template>
-	<div class="player" v-if="showPlayer">
+	<div class="player" v-if="songlist.length">
 		<div class="full" v-show="fullScreen">
 			<div class="playerback">
 				<img src="../../common/image/logo.png" alt="">
@@ -8,7 +8,7 @@
 				<div class="packup"  @click="setFull">
 					<img src="../../common/image/down.png" alt="">
 				</div>
-				<div class="playing-title">風化する教室</div>
+				<div class="playing-title" v-html="currentSong.title">風化する教室</div>
 				<div class="playing-singer">きのこ帝国 (蘑菇帝国)</div>
 			</div>
 			<div class="middle">
@@ -56,7 +56,7 @@
 				<img src="../../common/image/logo.png" alt="">
 			</div>
 			<div class="s-songinfo">
-				<div class="s-playing-title">風化する教室</div>
+				<div class="s-playing-title" v-html="currentSong.title">風化する教室</div>
 				<div class="s-playing-singer">きのこ帝国 (蘑菇帝国)</div>	
 			</div>
 			<div class="s-control">
@@ -90,7 +90,7 @@
 	</div>
 </template>
 <script type="text/javascript">
-import {mapState,mapMutations} from 'vuex'
+import {mapState,mapGetters,mapMutations} from 'vuex'
 
 export default{
 	data(){
@@ -99,7 +99,14 @@ export default{
 		}
 	},
 	computed:{
-		...mapState(['showPlayer','fullScreen','currentIndex','songlist'])
+		...mapState([
+			'fullScreen',
+			'currentIndex',
+			'songlist'
+		]),
+		...mapGetters([
+			'currentSong'
+		])
 	},
 	mounted:function(){
 		const $this = this;
@@ -137,10 +144,10 @@ border-radius()
     //         -{vendor}-border-radius: arguments
 
 .player
-	width:100%
-	background:$background_content
+	// width:100%
 	.full
 		position:fixed
+		background:$background_content
 		top:0
 		left:0
 		right:0
@@ -295,7 +302,7 @@ border-radius()
 		color:$font_normal_color
 		padding-top:$block_padding
 		.play-mode
-			display:flex
+			display:flex 
 			align-items:center
 			padding:10px $block_padding
 			img.mode

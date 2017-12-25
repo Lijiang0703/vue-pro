@@ -1,4 +1,5 @@
 import * as api from 'common/js/banner'
+import type from './mutation_type'
 
 const actions = {
 	getsinger:(context)=>{
@@ -14,6 +15,12 @@ const actions = {
 	},
 	addToSonglist:(context,payload)=>{
 		context.state.songlist.push(payload);
+	},
+	setplaying:({commit,state},{songlist,index})=>{
+		commit(type.SETPlAYLIST,songlist);
+		commit(type.SETSTATE,{currentIndex:index});
+		commit(type.SETSTATE,{fullScreen:true})
+		commit(type.SETSTATE,{play:true})
 	}
 }
 export default actions

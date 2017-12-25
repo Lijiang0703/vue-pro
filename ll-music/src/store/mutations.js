@@ -5,10 +5,14 @@ const mutations ={
 		state.singer = payload
 	},
 	[type.SETSTATE] :(state,payload)=>{
-		state[payload.key] = payload.value || !state[payload.key];
+		for(let key in payload)
+			state[key] = payload[key];
 	},
 	[type.SETFULL]:(state,payload)=>{
 		state.fullScreen = !state.fullScreen;
+	},
+	[type.SETPlAYLIST]:(state,payload)=>{
+		state.songlist = payload;
 	}
 
 }

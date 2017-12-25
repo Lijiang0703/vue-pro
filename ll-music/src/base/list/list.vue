@@ -4,7 +4,7 @@
 		<load></load>
 	</div>
 	<ul>
-		<li v-for="(item,key) in lists">
+		<li v-for="(item,key) in lists" @click="selectItem(item,key)">
 			<div class="listitem">
 				<div class="left" v-if="showIndex">
 					<p class="index" v-text="key"></p>
@@ -50,6 +50,9 @@ export default{
 	methods:{
 		palyImmediate:function(id){
 
+		},
+		selectItem:function(item,key){
+			this.$emit('selectItem',item,key);
 		}
 	},
 	components:{

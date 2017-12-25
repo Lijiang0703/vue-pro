@@ -2,7 +2,6 @@ import {mode} from 'common/js/config'
 
 const state = {
 	singer:{},
-	showPlayer:false,
 	play:false,  //是否播放
 	currentIndex:-1,	//当前播放歌曲的index
 	songlist:[],  //播放列表

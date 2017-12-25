@@ -15,7 +15,7 @@
 		</div>
 		<div class="backlayer" ref="backlayer"></div>
 		<Scroll :listenScroll="true" :probeType="3" :pullingUp="true" @pullingUp="pullUp" @scroll="scroll" class="listwrap" >
-			<list :lists="lists"></list>
+			<list :lists="lists" @selectItem="playSong"></list>
 		</Scroll>
 	</div>
 </template>
@@ -23,6 +23,7 @@
 import * as api from 'common/js/banner'
 import List from 'base/list/list'
 import Scroll from 'base/scroll/scroll'
+import {mapActions} from 'vuex'
 
 export default{
 	data(){
@@ -52,9 +53,20 @@ export default{
 				if(data){
 					$this.logo = data.logo;
 					$this.topTitle = data.dissname;
-					$this.lists = data.songlist;
+					$this.lists = $this.parseList(data.songlist);
 				}
 			})
+		},
+		parseList:function(lists){
+			let newlists = [];
+			for(let i=0;i<lists.length;i++){
+				let list = lists[i];
+				newlists.push({
+					name:list.title
+					// singer:
+					// image:
+				})
+			}
 		},
 		palyByRandom:function(){
 			//随机播放
@@ -68,7 +80,15 @@ export default{
 		pullUp:function(p){
 			console.log(p);
 			this.scrollY = pos.y;
-		}
+		},
+		playSong:function(item,key){
+			this.setplaying({
+				songlist:this.lists,
+				index:key
+			})
+			console.log(item);
+		},
+		...mapActions(['setplaying'])
 	},
 	watch:{
 		scrollY:function(val){
@@ -190,12 +210,11 @@ topH = 250px
 					line-height:imgsize
 		.mask
 			width:100%
-			height:100%
 			position:absolute
 			left:0
 			top:0
 			bottom:0
-			background:#000
+			background:rgba(0,0,0,0.6)
 			z-index:0
-			opacity:0.6
+			// opacity:0.6
 </style>

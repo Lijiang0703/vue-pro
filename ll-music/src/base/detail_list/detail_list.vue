@@ -59,6 +59,7 @@ export default{
 		},
 		parseList:function(lists){
 			let newlists = [];
+			if(!lists) return [];
 			for(let i=0;i<lists.length;i++){
 				let list = lists[i];
 				newlists.push({
@@ -67,6 +68,7 @@ export default{
 					// image:
 				})
 			}
+			return newlists;
 		},
 		palyByRandom:function(){
 			//随机播放

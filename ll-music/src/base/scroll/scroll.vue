@@ -27,7 +27,7 @@ export default({
 			type: Boolean,
 			default:false
 		},
-		pullingUp:{
+		pullDownRefresh:{
 			type: Boolean,
 			default:false
 		}
@@ -45,6 +45,7 @@ export default({
 
 			this.scroll = new BScroll(this.$refs.scroll,{
 				probeType: this.probeType,
+				pullDownRefresh: this.pullDownRefresh,
 				click: this.click
 			});
 			if(this.listenScroll)
@@ -52,10 +53,10 @@ export default({
 					// console.log(p);
 					$this.$emit("scroll",p);
 				})
-			if(this.pullingUp)
-				this.scroll.on('pullingUp',function(p){
-					$this.$emit('pullingUp',p);
-				})
+			// if(this.pullDownRefresh)
+			// 	this.scroll.on('pullingUp',function(p){
+			// 		$this.$emit('pullingUp',p);
+			// 	})
 		},
 		refresh : function(){
 			this.scroll && this.scroll.refresh();

@@ -72,7 +72,7 @@
 			</div>
 			<div class="song-list">
 				<ul>
-					<li v-for="(item,key) in songlist">
+					<li v-for="(item,key) in sequenceList">
 						<img src="../../common/image/play.png" alt="" class="playing" v-show="currentIndex == key">
 						<span class="song-title">Five(5)</span>
 						<img src="../../common/image/love1.png" alt="" class="love">
@@ -86,6 +86,7 @@
 			<div class="close-list">
 				<span  @click="toggleList">关闭</span>
 			</div>
+			<audio src=""></audio>
 		</div>
 	</div>
 </template>
@@ -102,7 +103,8 @@ export default{
 		...mapState([
 			'fullScreen',
 			'currentIndex',
-			'songlist'
+			'songlist',
+			'sequenceList'
 		]),
 		...mapGetters([
 			'currentSong'
@@ -125,6 +127,7 @@ export default{
 		},
 		empty:function(){
 			this.songlist = [];
+			this.sequenceList = [];
 		}
 	}
 }
@@ -145,6 +148,8 @@ border-radius()
 
 .player
 	// width:100%
+	audio
+		display:none
 	.full
 		position:fixed
 		background:$background_content

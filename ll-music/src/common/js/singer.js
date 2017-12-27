@@ -17,7 +17,7 @@ export function getSinger(){
 		needNewCode:0
 	}
 	const data = Object.assign({},common,DEFAULT)
-	return axios.get('/api/getsinger',{
+	return axios.get('/api/getCD',{
 		params:data
 	}).then((response)=>{
 		return Promise.resolve(response.data);

@@ -18,6 +18,7 @@ const actions = {
 	},
 	setplaying:({commit,state},{songlist,index})=>{
 		commit(type.SETPlAYLIST,songlist);
+		commit(type.SETSTATE,{sequenceList:songlist});
 		commit(type.SETSTATE,{currentIndex:index});
 		commit(type.SETSTATE,{fullScreen:true})
 		commit(type.SETSTATE,{play:true})

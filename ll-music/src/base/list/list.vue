@@ -7,7 +7,7 @@
 		<li v-for="(item,key) in lists" @click="selectItem(item,key)">
 			<div class="listitem">
 				<div class="left" v-if="showIndex">
-					<p class="index" v-text="key"></p>
+					<p class="index" v-text="key+1"></p>
 				</div>
 				<div class="right" @click="palyImmediate(item.id)">
 					<p class="title" v-text="item.title"></p>
@@ -71,23 +71,32 @@ listh = 60px
 		padding:20px
 	.listitem
 		display:flex
+		align-items: flex-start
+		justify-content:flex-start
 		height:listh
 		.left
-			flex-grow:1
+			flex-shrink:0
+			flex-basis:30px
 			text-align:center
 			color:$font_highlight_color
 			p
 				margin-top:50%
 				transform:translateY(-50%)
 				-webkit-transform:translateY(-50%)
-				height:20px
-				line-height:20px
+				// height:20px
+				// line-height:20px
+				text-align:center
 				font-size:$font_navbar_size
 				font-weight:400
 		.right
-			flex-grow:3
-			flex-shrink:1
+			flex:1
+			overflow:hidden
+			.title,.content
+				overflow:hidden
+				white-space:nowrap
+				text-overflow:ellipsis
 			.title
+				width:100%
 				margin-top:5px
 				color:$font_normal_color
 				font-size:$font_title_size

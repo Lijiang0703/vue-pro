@@ -14,7 +14,14 @@
 			<div class="mask"></div>
 		</div>
 		<div class="backlayer" ref="backlayer"></div>
-		<Scroll :listenScroll="true" :probeType="3" :pullingUp="true" @pullingUp="pullUp" @scroll="scroll" class="listwrap" >
+		<Scroll 
+			:listenScroll="true" 
+			:probeType="3" 
+			:pullDownRefresh="true"
+			@pullingUp="pullUp" 
+			@scroll="scroll" 
+			class="listwrap" 
+			ref="scroll">
 			<list :lists="lists" @selectItem="playSong"></list>
 		</Scroll>
 	</div>
@@ -35,6 +42,12 @@ export default{
 		}
 	},
 	props:['id'],
+	mounted:function(){
+		var $this = this;
+		this.$nextTick(function(){
+			$this.getTop();
+		})
+	},
 	computed:{
 		showIndex :function(){
 			return this.$route.params.showIndex;
@@ -53,22 +66,13 @@ export default{
 				if(data){
 					$this.logo = data.logo;
 					$this.topTitle = data.dissname;
-					$this.lists = $this.parseList(data.songlist);
+					$this.lists = data.songlist || [];
 				}
 			})
 		},
-		parseList:function(lists){
-			let newlists = [];
-			if(!lists) return [];
-			for(let i=0;i<lists.length;i++){
-				let list = lists[i];
-				newlists.push({
-					name:list.title
-					// singer:
-					// image:
-				})
-			}
-			return newlists;
+		getTop:function(){
+			const baner = this.$refs.baner.clientHeight;
+			this.$refs.scroll.$el.style.top = baner +'px';
 		},
 		palyByRandom:function(){
 			//随机播放
@@ -137,7 +141,7 @@ imgsize = 30px
 ptop = 10px
 pleft= 15px
 listh = 60px
-topH = 250px
+// topH = 250px
 .detail
 	background:$backround_color
 	display:flex
@@ -154,7 +158,7 @@ topH = 250px
 	.listwrap
 		width:100%
 		position:fixed
-		top:topH
+		top:0
 		bottom:0
 		z-index:10
 	.bar
@@ -197,7 +201,7 @@ topH = 250px
 			.wrap
 				border:2px solid $font_highlight_color
 				border-radius:20px
-				// width:150px
+				width:150px
 				padding:5px ptop
 				margin-left:50%
 				transform:translateX(-50%)
@@ -210,6 +214,7 @@ topH = 250px
 					text-align:center
 					height:imgsize
 					line-height:imgsize
+					font-size:$font_normal_size
 		.mask
 			width:100%
 			position:absolute

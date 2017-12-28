@@ -14,14 +14,14 @@ const actions = {
 		})
 	},
 	addToSonglist:(context,payload)=>{
-		context.state.songlist.push(payload);
+		context.state.playlist.push(payload);
 	},
-	setplaying:({commit,state},{songlist,index})=>{
-		commit(type.SETPlAYLIST,songlist);
-		commit(type.SETSTATE,{sequenceList:songlist});
-		commit(type.SETSTATE,{currentIndex:index});
-		commit(type.SETSTATE,{fullScreen:true})
-		commit(type.SETSTATE,{play:true})
+	setplaying:({commit,state},{playlist,index})=>{
+		commit(type.SETPlAYLIST,playlist);
+		commit(type.SETSEQUENCELIST,playlist);
+		commit(type.setCURRENTINDEX,index);
+		commit(type.SETFULLSCREEN,true)
+		commit(type.SETPLAYING,true)
 	}
 }
 export default actions

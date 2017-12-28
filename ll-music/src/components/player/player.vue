@@ -1,11 +1,11 @@
 <template>
-	<div class="player" v-if="songlist.length">
+	<div class="player" v-if="playlist.length">
 		<div class="full" v-show="fullScreen">
 			<div class="playerback">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
 			<div class="songinfo">
-				<div class="packup"  @click="setFull">
+				<div class="packup"  @click="setFullScreen">
 					<img src="../../common/image/down.png" alt="">
 				</div>
 				<div class="playing-title" v-html="currentSong.title">風化する教室</div>
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		<div class="small"  v-show="!fullScreen">
-			<div class="s-playing-img" @click="setFull">
+			<div class="s-playing-img" @click="setFullScreen">
 				<img src="../../common/image/logo.png" alt="">
 			</div>
 			<div class="s-songinfo">
@@ -103,7 +103,7 @@ export default{
 		...mapState([
 			'fullScreen',
 			'currentIndex',
-			'songlist',
+			'playlist',
 			'sequenceList'
 		]),
 		...mapGetters([
@@ -117,16 +117,16 @@ export default{
 		},20)
 	},
 	methods:{
-		...mapMutations(['setState','setFull']),
+		...mapMutations(['setFullScreen']),
 		toggleList:function(e){
 			this.listshow = !this.listshow
 		},
 		remove:function(key){
-			var list = this.songlist;
+			var list = this.playlist;
 			this.list.splice(key,1);
 		},
 		empty:function(){
-			this.songlist = [];
+			this.playlist = [];
 			this.sequenceList = [];
 		}
 	}

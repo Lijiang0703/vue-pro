@@ -31,6 +31,7 @@ import * as api from 'common/js/banner'
 import List from 'base/list/list'
 import Scroll from 'base/scroll/scroll'
 import {mapActions} from 'vuex'
+import {createSong} from 'common/js/song'
 
 export default{
 	data(){
@@ -66,9 +67,19 @@ export default{
 				if(data){
 					$this.logo = data.logo;
 					$this.topTitle = data.dissname;
-					$this.lists = data.songlist || [];
+					$this.lists = $this._serializeList(data.songlist);
+					// $this.lists = data.songlist
+					console.log($this.lists[0]);
 				}
 			})
+		},
+		_serializeList:function(songlist){
+			let newlist = [];
+			songlist.forEach((song)=>{
+				if(song.id && song.album && song.album.mid)
+					newlist.push(createSong(song));
+			})
+			return newlist;
 		},
 		getTop:function(){
 			const baner = this.$refs.baner.clientHeight;

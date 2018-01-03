@@ -45,7 +45,7 @@ export default{
 
 	},
 	mounted:function(){
-		
+		console.log(this.lists);
 	},
 	methods:{
 		palyImmediate:function(id){

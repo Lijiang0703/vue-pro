@@ -69,7 +69,6 @@ export default{
 					$this.topTitle = data.dissname;
 					$this.lists = $this._serializeList(data.songlist);
 					// $this.lists = data.songlist
-					console.log($this.lists[0]);
 				}
 			})
 		},

@@ -30,3 +30,7 @@
 	被.recommendWrap的样式问题困扰了一个多礼拜，list滚动到底部有一个item高度的距离显示不了。经检查发现，postion:fixed的时候没有定义bottom:0,导致recommendWrap的高度多了一部分，又因为overflow:hidden了，所以未能正确显示出来。position:fixed可以很好的设置元素的高度不超过页面的高度，但是要注意使用中的问题
 12.6
 	`${}`是ES6提供的模版字符串
+1.8
+	最近有些偷懒，不找借口。
+	平时使用document.getElementsByTagName等返回的都不是真正的数组对象，而是nodelist类数组对象，可以像正常使用数组那样遍历迭代等，索引是只读的。可以用call、apply的方式继承使用Array的一些方法，例如map、slice等.使用Array.from可以将类数组对象转为数组
+	继续使用理解...扩展运算符
